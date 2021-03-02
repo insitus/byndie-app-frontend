@@ -7,3 +7,13 @@ export const USER_SIGNIN = gql`
     }
   }
 `
+export const ADD_HEALTH = gql`
+  mutation {
+    addHealthCheck {
+      message
+      user {
+        username
+      }
+    }
+  }
+`

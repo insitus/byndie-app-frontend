@@ -6,7 +6,7 @@ import { StyleSheet } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { useApolloContext } from '../components/ApolloProviderWrapper';
 import { Text, View } from '../components/Themed';
-import { USER_SIGNIN } from '../graphql/mutations';
+import { ADD_HEALTH, USER_SIGNIN } from '../graphql/mutations';
 
 const Login = ({ navigation }) => {
   const [userEmail, setUserEmail] = React.useState('');
@@ -36,7 +36,13 @@ const Login = ({ navigation }) => {
         // go to protected root;
       }
     }
-  })
+  });
+
+  const [protectedHealthcheckAdd, healthResponse] = useMutation(ADD_HEALTH, {
+    onCompleted({ addHealthCheck }) {
+      console.log({ addHealthCheck });
+    }
+  });
   
 
   const onChangeUserEmailText = (inputEmail: string) => {
@@ -91,6 +97,13 @@ const Login = ({ navigation }) => {
           accessibilityLabel="Register"
         >
           Register
+        </Button>
+        <Button
+          compact
+          onPress={() => protectedHealthcheckAdd()}
+          accessibilityLabel="Protected health check"
+        >
+          Add Healthcheck (protected)
         </Button>
       </View>
     // </ApolloProvider>
