@@ -28,7 +28,7 @@ const Login = ({ navigation }) => {
   const [login, { loading, error }] = useMutation(USER_SIGNIN, {
     onCompleted({ login }) {
       if (login) {
-        AsyncStorage.setItem('token', login.token as string);
+        AsyncStorage.setItem('token', login.accessToken as string);
         // go to protected root;
       }
     }
@@ -41,13 +41,6 @@ const Login = ({ navigation }) => {
 
   const onChangePasswordText = (inputPassword: string) => {
     setUserPassword(inputPassword);
-  }
-
-  const retriveToken = async () => {
-    const token = await AsyncStorage.getItem('token');
-    if (!token) return;
-
-    return token;
   }
 
   // const client = new ApolloClient({
