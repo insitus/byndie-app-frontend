@@ -8,6 +8,8 @@ import { EventType } from "./EventType";
 import { Input } from "../../components/Input";
 import { DatePicker } from "../../components/DatePicker";
 import { GuestsNumber } from "./GuestsNumber";
+import { useMutation } from "@apollo/client";
+import { ADD_EVENT } from "../../graphql/mutations";
 
 export default function AddEvent() {
   const [name, setName] = useState('');
@@ -15,12 +17,30 @@ export default function AddEvent() {
   const [country, setCountry] = useState('');
   const [city, setCity] = useState('');
   const [date, setDate] = useState('');
-  const [maxGuests, setMaxGuests] = useState(0);
+  const [maxGuests, setMaxGuests] = useState(1);
   const [description, setDescription] = useState('');
+  const [details, setDetails] = useState('');
+
+  const [addEventMutation, addResponse] = useMutation(ADD_EVENT, { 
+    onCompleted({ addEvent }) {
+      console.log({ addEvent })
+    }
+  })
 
   const onSaveEvent = () => {
+    console.log({ name, eventType, country, city, maxGuests, description, details })
     // TODO: validate
     // TODO: save name, location, ... (from state)
+    addEventMutation({ variables: {
+      name,
+      eventType: { name: eventType },
+      location: { city, country },
+      maxPeople: maxGuests,
+      dateFrom: "2021-01-20",
+      dateTo: "2021-08-21",
+      description,
+      details,
+    }});
   }
 
   return (
@@ -28,12 +48,12 @@ export default function AddEvent() {
       <StyledParagraph>Event type</StyledParagraph>
       <Section>
         <ViewSpace>
-          <EventType title="Place to stay" />
-          <EventType title="Get together" />
+          <EventType title="Place to stay" selectedEventType={eventType} setValue={setEventType}/>
+          <EventType title="Get together" selectedEventType={eventType} setValue={setEventType}/>
         </ViewSpace>
         <ViewSpace>
-          <EventType title="City tour" />
-          <EventType title="Classes" />
+          <EventType title="City tour" selectedEventType={eventType} setValue={setEventType}/>
+          <EventType title="Classes" selectedEventType={eventType} setValue={setEventType}/>
         </ViewSpace>
       </Section>
 
@@ -57,7 +77,9 @@ export default function AddEvent() {
       </Section>
 
       <Section>
-        <Input label="Event description" onChange={value => setDescription(value)} multiline />
+        <Input label="Event description" value={description} onChange={value => setDescription(value)} multiline />
+        <Input label="Event details" value={details} onChange={value => setDetails(value)} multiline />
+
       </Section>
 
       <Button title="Add event" onPress={onSaveEvent} />

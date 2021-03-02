@@ -29,11 +29,7 @@ export const ApolloProviderWrapper: React.FC = ({ children }) => {
       }
     }
     localTokenPromise();
-  }, [])
-
-  useEffect(() => {
-    console.log({ localToken} );
-  }, [localToken]);
+  }, []);
 
   const client = new ApolloClient({
     uri: 'http://localhost:3000/graphql',
