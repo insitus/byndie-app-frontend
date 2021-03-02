@@ -7,5 +7,3 @@ export const USER_SIGNIN = gql`
     }
   }
 `
-
-

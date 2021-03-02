@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
+import { useApolloContext } from '../components/ApolloProviderWrapper';
 import { Text, View } from '../components/Themed';
 import { USER_SIGNIN } from '../graphql/mutations';
 
@@ -12,6 +13,7 @@ const Login = ({ navigation }) => {
   const [userPassword, setUserPassword] = React.useState('');
   const [inProgress, setInProgress] = React.useState(false);
   const [disableAction, setDisableAction] = React.useState(false);
+  const { setLocalToken } = useApolloContext();
 
   
   const healthCheck = useQuery(gql`
@@ -30,7 +32,7 @@ const Login = ({ navigation }) => {
       console.log({ _login })
       if (_login) {
         AsyncStorage.setItem('token', _login.accessToken as string);
-        // setLocalToken(_login.accessToken);
+        setLocalToken(_login.accessToken);
         // go to protected root;
       }
     }
