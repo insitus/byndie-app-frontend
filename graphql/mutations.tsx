@@ -24,3 +24,23 @@ export const ADD_HEALTH = gql`
     }
   }
 `
+
+export const ADD_EVENT = gql`
+  mutation addEvent($name: String!, $eventType: EventTypeInput!, $location: LocationInput!, $maxPeople: Float!, $dateFrom: DateTime!, $dateTo: DateTime!, $description: String!, $details: String!) {
+    addEvent(
+      input: {
+        name: $name,
+        eventType: $eventType,
+        location: $location,
+        maxPeople: $maxPeople,
+        dateFrom: $dateFrom,
+        dateTo: $dateTo,
+        description: $description,
+        details: $details
+      }
+    ) {
+      id
+      name
+    }
+  }
+`

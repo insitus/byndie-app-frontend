@@ -14,6 +14,10 @@ export function GuestsNumber (props: Props) {
   const { primaryColor } = useContext(ThemeContext);
   const [numberOfGuests, setNumberOfGuests] = React.useState(0);
 
+  React.useEffect(() => {
+    props.onChange(numberOfGuests)
+  }, [numberOfGuests])
+
   const removeGuest = () => {
     if (numberOfGuests > 0) setNumberOfGuests(numberOfGuests - 1);
   };
