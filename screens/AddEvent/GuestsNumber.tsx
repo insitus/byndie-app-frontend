@@ -24,9 +24,9 @@ export function GuestsNumber (props: Props) {
 
   return (
     <ViewRow>
-      <Button style={buttonStyle} icon="minus" mode="outlined" onPress={() => props.onChange(props.value + 1)} >{''}</Button>
+      <Button style={buttonStyle} icon="minus" mode="outlined" onPress={() => props.onChange(props.value - 1)} >{''}</Button>
         <Counter>{props.value}</Counter>
-      <Button style={buttonStyle} icon="plus" mode="outlined" onPress={() => props.onChange(props.value - 1)}>{''}</Button>
+      <Button style={buttonStyle} icon="plus" mode="outlined" onPress={() => props.onChange(props.value + 1)}>{''}</Button>
     </ViewRow>
   );
 };
