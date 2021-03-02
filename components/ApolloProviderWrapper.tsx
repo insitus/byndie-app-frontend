@@ -21,8 +21,6 @@ export const ApolloProviderWrapper: React.FC = ({ children }) => {
     }
   });
 
-
-
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
 
 }

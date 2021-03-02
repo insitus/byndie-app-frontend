@@ -25,14 +25,16 @@ const Login = ({ navigation }) => {
 
   console.log({ healthCheck: healthCheck.data })
 
-  const [login, { loading, error }] = useMutation(USER_SIGNIN, {
-    onCompleted({ login }) {
-      if (login) {
-        AsyncStorage.setItem('token', login.accessToken as string);
+  const [login, { data }] = useMutation(USER_SIGNIN, {
+    onCompleted({ login: _login }) {
+      console.log({ _login })
+      if (_login) {
+        AsyncStorage.setItem('token', _login.accessToken as string);
         // go to protected root;
       }
     }
-  });
+  })
+  
 
   const onChangeUserEmailText = (inputEmail: string) => {
     setDisableAction(false);
@@ -75,7 +77,7 @@ const Login = ({ navigation }) => {
           disabled={disableAction}
           mode="contained"
           loading={inProgress}
-          onPress={() => console.log('something...')}
+          onPress={() => login({variables: { username: userEmail, password: userPassword }})}
           accessibilityLabel="LogIn"
         >
           Log in
