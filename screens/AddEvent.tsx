@@ -3,10 +3,10 @@ import { StyleSheet } from 'react-native';
 
 import { Text, View } from '../components/Themed';
 
-export default function Booking() {
+export default function AddEvent() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Booking</Text>
+      <Text style={styles.title}>Add an event</Text>
     </View>
   );
 }

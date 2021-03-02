@@ -21,9 +21,9 @@ export default {
               Listing: 'listing',
             },
           },
-          Booking: {
+          AddEvent: {
             screens: {
-              Booking: 'booking',
+              AddEvent: 'add-an-event',
             },
           },
         },

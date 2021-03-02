@@ -26,7 +26,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 // Read more here: https://reactnavigation.org/docs/modal
 const Stack = createStackNavigator<RootStackParamList>();
 
-const isSignedIn = false;
+const isSignedIn = true;
 // check for userToken if exists and valid
 
 function RootNavigator() {

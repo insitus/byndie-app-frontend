@@ -6,8 +6,8 @@ import * as React from 'react';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import Listing from '../screens/Listing';
-import Booking from '../screens/Booking';
-import { BottomTabParamList, ListingParamList, BookingParamList, ProfileParamList } from '../types';
+import AddEvent from '../screens/AddEvent';
+import { BottomTabParamList, ListingParamList, AddEventParamList, ProfileParamList } from '../types';
 import Profile from '../screens/Profile';
 import { Button, IconButton, Searchbar } from 'react-native-paper';
 import { View } from 'react-native';
@@ -29,8 +29,8 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="Booking"
-        component={BookingNavigator}
+        name="AddEvent"
+        component={AddEventNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="bookmark" color={color} />,
         }}
@@ -86,17 +86,17 @@ function ListingNavigator() {
   );
 }
 
-const BookingStack = createStackNavigator<BookingParamList>();
+const AddEventStack = createStackNavigator<AddEventParamList>();
 
-function BookingNavigator() {
+function AddEventNavigator() {
   return (
-    <BookingStack.Navigator>
-      <BookingStack.Screen
-        name="Booking"
-        component={Booking}
-        options={{ headerTitle: 'Booking' }}
+    <AddEventStack.Navigator>
+      <AddEventStack.Screen
+        name="AddEvent"
+        component={AddEvent}
+        options={{ headerTitle: 'Add an event' }}
       />
-    </BookingStack.Navigator>
+    </AddEventStack.Navigator>
   );
 }
 
