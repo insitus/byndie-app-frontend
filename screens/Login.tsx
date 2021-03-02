@@ -30,6 +30,7 @@ const Login = ({ navigation }) => {
       console.log({ _login })
       if (_login) {
         AsyncStorage.setItem('token', _login.accessToken as string);
+        // setLocalToken(_login.accessToken);
         // go to protected root;
       }
     }
