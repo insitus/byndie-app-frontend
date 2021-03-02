@@ -1,14 +1,26 @@
+import { ApolloProvider, ApolloClient, useMutation, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
-
 import { Text, View } from '../components/Themed';
+import { USER_SIGNIN } from '../graphql/mutations';
 
-export default function Login({ navigation }) {
+const Login = ({ navigation }) => {
   const [userEmail, setUserEmail] = React.useState('');
   const [userPassword, setUserPassword] = React.useState('');
   const [inProgress, setInProgress] = React.useState(false);
   const [disableAction, setDisableAction] = React.useState(false);
+
+  const [login, { loading, error }] = useMutation(USER_SIGNIN, {
+    onCompleted({ login }) {
+      if (login) {
+        AsyncStorage.setItem('token', login.token as string);
+        // go to protected root;
+      }
+    }
+  });
 
   const onChangeUserEmailText = (inputEmail: string) => {
     setDisableAction(false);
@@ -19,53 +31,63 @@ export default function Login({ navigation }) {
     setUserPassword(inputPassword);
   }
 
-  const onPressDoLogin = () => {
-    // do proper email validation here
-    if (!userEmail.includes('@bynder.com')) {
-      setDisableAction(true);
-    } else {
-      setInProgress(true);
-    }
+  const retriveToken = async () => {
+    const token = await AsyncStorage.getItem('token');
+    if (!token) return;
+
+    return token;
   }
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Get Onboard</Text>
-      <TextInput
-        disabled={inProgress}
-        label="Email"
-        value={userEmail}
-        onChangeText={onChangeUserEmailText}
-        style={styles.input}
-      />
-      <TextInput
-        disabled={inProgress}
-        secureTextEntry={true}
-        label="Password"
-        value={userPassword}
-        onChangeText={onChangePasswordText}
-        style={styles.input}
-      />
-      <Button
-        disabled={disableAction}
-        mode="contained"
-        loading={inProgress}
-        onPress={onPressDoLogin}
-        accessibilityLabel="LogIn"
-      >
-        Log in
-      </Button>
-      <Button
-        compact
-        onPress={() => navigation.navigate('Register')}
-        accessibilityLabel="Register"
-      >
-        Register
-      </Button>
-    </View>
+  const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    uri: `http://localhost:3000/graphql/`,
+    headers: {
+      // authorization: retriveToken() ? `Bearer ${retriveToken()}` : "",
+      authorization: "",
+    }
+  });
 
+  return (
+    <ApolloProvider client={client}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Get Onboard</Text>
+        <TextInput
+          disabled={inProgress}
+          label="Email"
+          value={userEmail}
+          onChangeText={onChangeUserEmailText}
+          style={styles.input}
+        />
+        <TextInput
+          disabled={inProgress}
+          secureTextEntry={true}
+          label="Password"
+          value={userPassword}
+          onChangeText={onChangePasswordText}
+          style={styles.input}
+        />
+        <Button
+          disabled={disableAction}
+          mode="contained"
+          loading={inProgress}
+          onPress={() => console.log('something...')}
+          accessibilityLabel="LogIn"
+        >
+          Log in
+        </Button>
+        <Button
+          compact
+          onPress={() => navigation.navigate('Register')}
+          accessibilityLabel="Register"
+        >
+          Register
+        </Button>
+      </View>
+    </ApolloProvider>
   );
 }
+
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
