@@ -5,9 +5,11 @@ import { useEffect, useState } from "react"
 
 const retrieveToken = async (): Promise<string> => {
   const token = await AsyncStorage.getItem('token');
-  if (!token) return;
+  if (token) {
+    return token;
+  }
 
-  return token;
+  return "";
 }
 
 export const ApolloCtx = createContext({} as any);
@@ -17,7 +19,17 @@ export const useApolloContext = () => useContext(ApolloCtx);
 const { Provider } = ApolloCtx;
 
 export const ApolloProviderWrapper: React.FC = ({ children }) => {
-  const [localToken, setLocalToken] = useState(retrieveToken());
+  const [localToken, setLocalToken] = useState<string>();
+
+  useEffect(() => {
+    const localTokenPromise = async () => {
+      const token = await retrieveToken();
+      if (token) {
+        setLocalToken(token);
+      }
+    }
+    localTokenPromise();
+  }, [])
 
   useEffect(() => {
     console.log({ localToken} );
