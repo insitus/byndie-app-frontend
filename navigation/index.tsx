@@ -2,6 +2,7 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
+import { useApolloContext } from '../components/ApolloProviderWrapper';
 import Login from '../screens/Login';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
@@ -26,12 +27,10 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 // Read more here: https://reactnavigation.org/docs/modal
 const Stack = createStackNavigator<RootStackParamList>();
 
-const isSignedIn = false;
-// check for userToken if exists and valid
-
-function RootNavigator() {
+const RootNavigator = () => {
+  const {localToken} = useApolloContext();
   return (
-    !isSignedIn ? (
+    !localToken ? (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
