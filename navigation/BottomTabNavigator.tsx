@@ -1,7 +1,7 @@
+import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -9,8 +9,9 @@ import Listing from '../screens/Listing';
 import AddEvent from '../screens/AddEvent';
 import { BottomTabParamList, ListingParamList, AddEventParamList, ProfileParamList } from '../types';
 import Profile from '../screens/Profile';
-import { Button, IconButton, Searchbar } from 'react-native-paper';
+import { IconButton, Searchbar } from 'react-native-paper';
 import { View } from 'react-native';
+import { ThemeContext } from '../ThemeContext';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -25,6 +26,7 @@ export default function BottomTabNavigator() {
         name="Listing"
         component={ListingNavigator}
         options={{
+          tabBarLabel: 'List events',
           tabBarIcon: ({ color }) => <TabBarIcon name="view-dashboard" color={color} />,
         }}
       />
@@ -32,6 +34,7 @@ export default function BottomTabNavigator() {
         name="AddEvent"
         component={AddEventNavigator}
         options={{
+          tabBarLabel: 'Add event',
           tabBarIcon: ({ color }) => <TabBarIcon name="bookmark" color={color} />,
         }}
       />
@@ -39,6 +42,7 @@ export default function BottomTabNavigator() {
         name="Profile"
         component={ProfileNavigator}
         options={{
+          tabBarLabel: 'Profile',
           tabBarIcon: ({ color }) => <TabBarIcon name="face-profile" color={color} />,
         }}
       />
@@ -89,8 +93,10 @@ function ListingNavigator() {
 const AddEventStack = createStackNavigator<AddEventParamList>();
 
 function AddEventNavigator() {
+  const { header } =  React.useContext(ThemeContext);
+
   return (
-    <AddEventStack.Navigator>
+    <AddEventStack.Navigator screenOptions={{ headerTitleStyle: header }}>
       <AddEventStack.Screen
         name="AddEvent"
         component={AddEvent}
