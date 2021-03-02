@@ -11,9 +11,8 @@ export const EventType = (props: Props) => {
 
   return (
     <Chip
-      icon={props.icon}
       selected={isSelected}
-      onPress={() => setIsSelected(true)}
+      onPress={() => setIsSelected(prevCheck => !prevCheck)}
     >
       {props.title}
     </Chip>

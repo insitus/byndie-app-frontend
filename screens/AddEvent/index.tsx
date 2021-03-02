@@ -1,37 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import {
-  Button,
-  RadioButton,
-  Paragraph,
-} from "react-native-paper";
+import { Button } from 'react-native';
 
-import { ViewContainer, ViewRow, ViewSpace } from "../../components/Layout/Views";
+import { ViewContainer, ViewSpace } from "../../components/Layout/Views";
 import { View } from "../../components/Themed";
 import { EventType } from "./EventType";
 import { Input } from "../../components/Input";
+import { DatePicker } from "../../components/DatePicker";
 import { GuestsNumber } from "./GuestsNumber";
-
-const EvenRadio = () => {
-  const [checked, setChecked] = React.useState("first");
-
-  return (
-    <View>
-      <RadioButton
-        value="first"
-        status={checked === "first" ? "checked" : "unchecked"}
-        onPress={() => setChecked("first")}
-      >
-        First
-      </RadioButton>
-      <RadioButton
-        value="second"
-        status={checked === "second" ? "checked" : "unchecked"}
-        onPress={() => setChecked("second")}
-      />
-    </View>
-  );
-};
 
 export default function AddEvent() {
   const [name, setName] = useState('');
@@ -65,6 +41,11 @@ export default function AddEvent() {
         <Input label="Event location" value={location} onChange={value => setLocation(value)} />
       </Section>
 
+      <label>Event date</label>
+      <Section>
+        <DatePicker />
+      </Section>
+
       <StyledParagraph>Maximum number of guests</StyledParagraph>
       <Section>
         <GuestsNumber value={maxGuests} onChange={value => setMaxGuests(value)}/>
@@ -74,19 +55,17 @@ export default function AddEvent() {
         <Input label="Event description" multiline />
       </Section>
 
-      <Section>
-        <Input label="Event date" multiline />
-      </Section>
-
-      <Button mode="contained" onPress={onSaveEvent}>
-        Add event
-      </Button>
+      <Button title="Add event"  onPress={onSaveEvent} />
     </ViewContainer>
   );
 }
 
-const StyledParagraph = styled(Paragraph)`
-  margin-bottom: 8px;
+const StyledParagraph = styled.p`
+  margin: 0 0 20px 0;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
 `;
 
 const Section = styled.div`
