@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import {
   Button,
   RadioButton,
-  TextInput,
   Paragraph,
 } from "react-native-paper";
 
 import { ViewContainer, ViewRow, ViewSpace } from "../../components/Layout/Views";
 import { View } from "../../components/Themed";
 import { EventType } from "./EventType";
+import { Input } from "../../components/Input";
 
 const EvenRadio = () => {
   const [checked, setChecked] = React.useState("first");
@@ -29,30 +29,6 @@ const EvenRadio = () => {
         onPress={() => setChecked("second")}
       />
     </View>
-  );
-};
-
-const EventName = () => {
-  const [text, setText] = React.useState("");
-
-  return (
-    <TextInput
-      label="Event name"
-      value={text}
-      onChangeText={(text) => setText(text)}
-    />
-  );
-};
-
-const EventLocation = () => {
-  const [text, setText] = React.useState("");
-
-  return (
-    <TextInput
-      label="Event location"
-      value={text}
-      onChangeText={(text) => setText(text)}
-    />
   );
 };
 
@@ -81,6 +57,14 @@ const EventNumberOfGuests = () => {
 };
 
 export default function AddEvent() {
+  const [name, setName] = useState('');
+  const [location, setLocation] = useState('');
+
+  const onSaveEvent = () => {
+    // TODO: validate
+    // TODO: save name, location, ... (from state)
+  }
+
   return (
     <ViewContainer>
       <StyledParagraph>Event type</StyledParagraph>
@@ -95,14 +79,12 @@ export default function AddEvent() {
         </ViewSpace>
       </Section>
 
-      <StyledParagraph>Event type</StyledParagraph>
       <Section>
-        <EventName />
+        <Input label="Event name" value={name} onChange={value => setName(value)} />
       </Section>
 
-      <StyledParagraph>Event location</StyledParagraph>
       <Section>
-        <EventLocation />
+        <Input label="Event location" value={location} onChange={value => setLocation(value)} />
       </Section>
 
       <StyledParagraph>Maximum number of guests</StyledParagraph>
@@ -110,17 +92,15 @@ export default function AddEvent() {
         <EventNumberOfGuests />
       </Section>
 
-      <StyledParagraph>Event description</StyledParagraph>
       <Section>
-        <TextInput multiline />
+        <Input label="Event description" multiline />
       </Section>
 
-      <StyledParagraph>Event date</StyledParagraph>
       <Section>
-        <TextInput multiline />
+        <Input label="Event date" multiline />
       </Section>
 
-      <Button mode="contained" onPress={() => console.log("Pressed")}>
+      <Button mode="contained" onPress={onSaveEvent}>
         Add event
       </Button>
     </ViewContainer>
