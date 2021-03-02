@@ -10,6 +10,7 @@ import { ViewContainer, ViewRow, ViewSpace } from "../../components/Layout/Views
 import { View } from "../../components/Themed";
 import { EventType } from "./EventType";
 import { Input } from "../../components/Input";
+import { GuestsNumber } from "./GuestsNumber";
 
 const EvenRadio = () => {
   const [checked, setChecked] = React.useState("first");
@@ -32,33 +33,10 @@ const EvenRadio = () => {
   );
 };
 
-const EventNumberOfGuests = () => {
-  const [numberOfGuests, setNumberOfGuests] = React.useState(0);
-
-  const removeGuest = () => {
-    if (numberOfGuests > 0) setNumberOfGuests(numberOfGuests - 1);
-  };
-
-  const addGuest = () => {
-    setNumberOfGuests(numberOfGuests + 1);
-  };
-
-  return (
-    <ViewRow>
-      <Button icon="minus" mode="outlined" onPress={removeGuest}>
-        Remove guest
-      </Button>
-      <NumberOfGuestsCounter>{numberOfGuests}</NumberOfGuestsCounter>
-      <Button icon="plus" mode="outlined" onPress={addGuest}>
-        Add guest
-      </Button>
-    </ViewRow>
-  );
-};
-
 export default function AddEvent() {
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
+  const [maxGuests, setMaxGuests] = useState(0);
 
   const onSaveEvent = () => {
     // TODO: validate
@@ -89,7 +67,7 @@ export default function AddEvent() {
 
       <StyledParagraph>Maximum number of guests</StyledParagraph>
       <Section>
-        <EventNumberOfGuests />
+        <GuestsNumber value={maxGuests} onChange={value => setMaxGuests(value)}/>
       </Section>
 
       <Section>
@@ -113,8 +91,4 @@ const StyledParagraph = styled(Paragraph)`
 
 const Section = styled.div`
   margin-bottom: 20px;
-`;
-
-const NumberOfGuestsCounter = styled.div`
-  margin: auto 20px;
 `;
