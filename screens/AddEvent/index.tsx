@@ -11,8 +11,12 @@ import { GuestsNumber } from "./GuestsNumber";
 
 export default function AddEvent() {
   const [name, setName] = useState('');
-  const [location, setLocation] = useState('');
+  const [eventType, setEventType] = useState('');
+  const [country, setCountry] = useState('');
+  const [city, setCity] = useState('');
+  const [date, setDate] = useState('');
   const [maxGuests, setMaxGuests] = useState(0);
+  const [description, setDescription] = useState('');
 
   const onSaveEvent = () => {
     // TODO: validate
@@ -38,7 +42,8 @@ export default function AddEvent() {
       </Section>
 
       <Section>
-        <Input label="Event location" value={location} onChange={value => setLocation(value)} />
+        <Input label="Country" value={country} onChange={value => setCountry(value)} />
+        <Input label="City" value={city} onChange={value => setCity(value)} />
       </Section>
 
       <label>Event date</label>
@@ -52,10 +57,10 @@ export default function AddEvent() {
       </Section>
 
       <Section>
-        <Input label="Event description" multiline />
+        <Input label="Event description" onChange={value => setDescription(value)} multiline />
       </Section>
 
-      <Button title="Add event"  onPress={onSaveEvent} />
+      <Button title="Add event" onPress={onSaveEvent} />
     </ViewContainer>
   );
 }
