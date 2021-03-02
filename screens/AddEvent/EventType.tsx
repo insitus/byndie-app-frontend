@@ -17,7 +17,10 @@ export const EventType = (props: Props) => {
       onPress={() => { 
         // setIsSelected(prevCheck => !prevCheck)
         props.setValue(props.title)
-      }}>
+      }}
+      mode="outlined"
+      style={{backgroundColor: '#fff', color: '#002233', borderColor: '' }}
+    >
       {props.title}
     </Chip>
   );

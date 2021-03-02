@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Button } from 'react-native';
+import { Button } from "react-native";
 
-import { ViewContainer, ViewSpace } from "../../components/Layout/Views";
+import { ViewContainerScroll, ViewSpace } from "../../components/Layout/Views";
 import { View } from "../../components/Themed";
 import { EventType } from "./EventType";
 import { Input } from "../../components/Input";
@@ -44,7 +44,7 @@ export default function AddEvent() {
   }
 
   return (
-    <ViewContainer>
+    <ViewContainerScroll>
       <StyledParagraph>Event type</StyledParagraph>
       <Section>
         <ViewSpace>
@@ -58,22 +58,43 @@ export default function AddEvent() {
       </Section>
 
       <Section>
-        <Input label="Event name" value={name} onChange={value => setName(value)} />
+        <Input
+          label="Event name"
+          placeholder="How would you like to call your event?"
+          value={name}
+          onChange={(value) => setName(value)}
+        />
       </Section>
 
       <Section>
-        <Input label="Country" value={country} onChange={value => setCountry(value)} />
-        <Input label="City" value={city} onChange={value => setCity(value)} />
+        <Input
+          label="Country"
+          placeholder="In which country will the event take place?"
+          value={country}
+          onChange={(value) => setCountry(value)}
+        />
       </Section>
 
-      <label>Event date</label>
+      <Section>
+        <Input
+          label="City"
+          placeholder="In which city will the vent take place?"
+          value={city}
+          onChange={(value) => setCity(value)}
+        />
+      </Section>
+
+      <StyledParagraph>Date available</StyledParagraph>
       <Section>
         <DatePicker />
       </Section>
 
       <StyledParagraph>Maximum number of guests</StyledParagraph>
       <Section>
-        <GuestsNumber value={maxGuests} onChange={value => setMaxGuests(value)}/>
+        <GuestsNumber
+          value={maxGuests}
+          onChange={(value) => setMaxGuests(value)}
+        />
       </Section>
 
       <Section>
@@ -83,12 +104,12 @@ export default function AddEvent() {
       </Section>
 
       <Button title="Add event" onPress={onSaveEvent} />
-    </ViewContainer>
+    </ViewContainerScroll>
   );
 }
 
 const StyledParagraph = styled.p`
-  margin: 0 0 20px 0;
+  margin: 0 0 8px 0;
   font-size: 17px;
   font-style: normal;
   font-weight: 700;
