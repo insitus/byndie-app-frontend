@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
+import styled from "styled-components";
 
 import { Text, View } from '../components/Themed';
 
