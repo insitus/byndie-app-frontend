@@ -9,8 +9,7 @@ import {
 } from "react-native-paper";
 import styled from "styled-components";
 
-
-import { Text, View } from "../components/Themed";
+import { View } from "../components/Themed";
 
 const EventChip = (props: any) => {
   const [isSelected, setIsSelected] = React.useState(false);
@@ -84,9 +83,13 @@ const EventNumberOfGuests = () => {
 
   return (
     <View style={styles.row}>
-      <Button icon="minus" mode="outlined" onPress={removeGuest}>Remove guest</Button>
+      <Button icon="minus" mode="outlined" onPress={removeGuest}>
+        Remove guest
+      </Button>
       <NumberOfGuestsCounter>{numberOfGuests}</NumberOfGuestsCounter>
-      <Button icon="plus" mode="outlined" onPress={addGuest}>Add guest</Button>
+      <Button icon="plus" mode="outlined" onPress={addGuest}>
+        Add guest
+      </Button>
     </View>
   );
 };
@@ -94,32 +97,39 @@ const EventNumberOfGuests = () => {
 export default function AddEvent() {
   return (
     <View style={styles.container}>
-      <Paragraph>Event type</Paragraph>
+      <StyledParagraph>Event type</StyledParagraph>
       <Section>
-        <View style={styles.row}>
+        <View style={styles.space}>
           <EventChip title="Place to stay" />
           <EventChip title="Get together" />
+        </View>
+        <View style={styles.space}>
           <EventChip title="City tour" />
           <EventChip title="Classes" />
         </View>
       </Section>
 
-      <Paragraph>Event type</Paragraph>
+      <StyledParagraph>Event type</StyledParagraph>
       <Section>
         <EventName />
       </Section>
 
-      <Paragraph>Event Name</Paragraph>
+      <StyledParagraph>Event location</StyledParagraph>
       <Section>
         <EventLocation />
       </Section>
 
-      <Paragraph>Maximum number of guests</Paragraph>
+      <StyledParagraph>Maximum number of guests</StyledParagraph>
       <Section>
         <EventNumberOfGuests />
       </Section>
 
-      <Paragraph>Event description</Paragraph>
+      <StyledParagraph>Event description</StyledParagraph>
+      <Section>
+        <TextInput multiline />
+      </Section>
+
+      <StyledParagraph>Event date</StyledParagraph>
       <Section>
         <TextInput multiline />
       </Section>
@@ -130,6 +140,10 @@ export default function AddEvent() {
     </View>
   );
 }
+
+const StyledParagraph = styled(Paragraph)`
+  margin-bottom: 8px;
+`;
 
 const Section = styled.div`
   margin-bottom: 20px;
@@ -145,5 +159,10 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
+  },
+  space: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginBottom: 20,
   },
 });
