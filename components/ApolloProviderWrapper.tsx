@@ -43,6 +43,6 @@ export const ApolloProviderWrapper: React.FC = ({ children }) => {
     }
   });
 
-  return <Provider value={{ setLocalToken }}><ApolloProvider client={client}>{children}</ApolloProvider></Provider>;
+  return <Provider value={{ setLocalToken, localToken }}><ApolloProvider client={client}>{children}</ApolloProvider></Provider>;
 
 }

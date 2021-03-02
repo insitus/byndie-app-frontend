@@ -6,7 +6,6 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 
-import { ApolloClient, InMemoryCache, gql, ApolloProvider } from '@apollo/client';
 import { ApolloProviderWrapper } from './components/ApolloProviderWrapper';
 
 
