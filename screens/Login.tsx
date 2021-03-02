@@ -1,4 +1,4 @@
-import { ApolloProvider, ApolloClient, useMutation, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
+import { ApolloProvider, ApolloClient, useMutation, InMemoryCache, NormalizedCacheObject, useQuery, gql } from '@apollo/client';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as React from 'react';
@@ -12,6 +12,18 @@ const Login = ({ navigation }) => {
   const [userPassword, setUserPassword] = React.useState('');
   const [inProgress, setInProgress] = React.useState(false);
   const [disableAction, setDisableAction] = React.useState(false);
+
+  
+  const healthCheck = useQuery(gql`
+    query {
+      healthcheck {
+        message
+      }
+    }
+  `
+  )
+
+  console.log({ healthCheck: healthCheck.data })
 
   const [login, { loading, error }] = useMutation(USER_SIGNIN, {
     onCompleted({ login }) {
@@ -38,17 +50,17 @@ const Login = ({ navigation }) => {
     return token;
   }
 
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    uri: `http://localhost:3000/graphql/`,
-    headers: {
-      // authorization: retriveToken() ? `Bearer ${retriveToken()}` : "",
-      authorization: "",
-    }
-  });
+  // const client = new ApolloClient({
+  //   cache: new InMemoryCache(),
+  //   uri: `http://localhost:3000/graphql`,
+  //   headers: {
+  //     // authorization: retriveToken() ? `Bearer ${retriveToken()}` : "",
+  //     authorization: "",
+  //   }
+  // });
 
   return (
-    <ApolloProvider client={client}>
+    // <ApolloProvider client={client}>
       <View style={styles.container}>
         <Text style={styles.title}>Get Onboard</Text>
         <TextInput
@@ -83,7 +95,7 @@ const Login = ({ navigation }) => {
           Register
         </Button>
       </View>
-    </ApolloProvider>
+    // </ApolloProvider>
   );
 }
 
