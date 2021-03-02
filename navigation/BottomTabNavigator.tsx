@@ -1,13 +1,16 @@
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import Listing from '../screens/Listing';
+import Booking from '../screens/Booking';
+import { BottomTabParamList, ListingParamList, BookingParamList, ProfileParamList } from '../types';
+import Profile from '../screens/Profile';
+import { Button, IconButton, Searchbar } from 'react-native-paper';
+import { View } from 'react-native';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -16,20 +19,27 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Listing"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="Listing"
+        component={ListingNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="view-dashboard" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="Booking"
+        component={BookingNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="bookmark" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Profile"
+        component={ProfileNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="face-profile" color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -38,36 +48,68 @@ export default function BottomTabNavigator() {
 
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
-function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+function TabBarIcon(props: { name: React.ComponentProps<typeof MaterialCommunityIcons>['name']; color: string }) {
+  return <MaterialCommunityIcons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const ListingStack = createStackNavigator<ListingParamList>();
 
-function TabOneNavigator() {
-  return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+function ListingNavigator() {
+  const [searchQuery, setSearchQuery] = React.useState('');
+
+  const onSearchQueryChange = (query: string) => setSearchQuery(query);
+  const searchHeader = () => (
+    <View style={{justifyContent: 'center', flexDirection: 'row'}}>
+      <Searchbar style={{alignSelf: 'flex-start'}} placeholder="Search" onChangeText={onSearchQueryChange} value={searchQuery} />
+      <IconButton
+        icon="filter"
+        color='blue'
+        size={20}
+        onPress={() => console.log('Pressed')}
+        style={{alignSelf: 'flex-end'}} 
       />
-    </TabOneStack.Navigator>
+    </View>
+  )
+
+  return (
+    <ListingStack.Navigator>
+      <ListingStack.Screen
+        name="Listing"
+        component={Listing}
+        options={{
+          headerTitle: searchHeader
+        }}
+      />
+    </ListingStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const BookingStack = createStackNavigator<BookingParamList>();
 
-function TabTwoNavigator() {
+function BookingNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+    <BookingStack.Navigator>
+      <BookingStack.Screen
+        name="Booking"
+        component={Booking}
+        options={{ headerTitle: 'Booking' }}
       />
-    </TabTwoStack.Navigator>
+    </BookingStack.Navigator>
+  );
+}
+
+const ProfileStack = createStackNavigator<ProfileParamList>();
+
+function ProfileNavigator() {
+  return (
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
+        name="Profile"
+        component={Profile}
+        options={{ headerTitle: 'Profile' }}
+      />
+    </ProfileStack.Navigator>
   );
 }
