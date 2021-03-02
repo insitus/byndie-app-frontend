@@ -8,24 +8,12 @@ import { useApolloContext } from '../components/ApolloProviderWrapper';
 import { Text, View } from '../components/Themed';
 import { ADD_HEALTH, USER_SIGNIN } from '../graphql/mutations';
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation }: { navigation: any}) => {
   const [userEmail, setUserEmail] = React.useState('');
   const [userPassword, setUserPassword] = React.useState('');
   const [inProgress, setInProgress] = React.useState(false);
   const [disableAction, setDisableAction] = React.useState(false);
   const { setLocalToken } = useApolloContext();
-
-
-  const healthCheck = useQuery(gql`
-    query {
-      healthcheck {
-        message
-      }
-    }
-  `
-  )
-
-  console.log({ healthCheck: healthCheck.data })
 
   const [login, { data }] = useMutation(USER_SIGNIN, {
     onCompleted({ login: _login }) {

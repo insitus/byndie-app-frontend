@@ -28,7 +28,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
-  const {localToken} = useApolloContext();
+  const { localToken } = useApolloContext();
   return (
     !localToken ? (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
