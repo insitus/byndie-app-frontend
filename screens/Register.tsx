@@ -2,32 +2,80 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 
+import { USER_REGISTER } from '../graphql/mutations';
+
 import { Text, View } from '../components/Themed';
+import { useMutation } from '@apollo/client';
 
 export default function Register({ navigation }) {
-  const [userEmail, setUserEmail] = React.useState();
-  const [userPassword, setUserPassword] = React.useState();
+  const [userEmail, setUserEmail] = React.useState<string>('');
+  const [userName, setUserName] = React.useState<string>('');
+  const [registrationError, setRegistrationError] = React.useState(false);
+  const [userPassword, setUserPassword] = React.useState<string>('');
+
   const [inProgress, setInProgress] = React.useState(false);
+  const [validationWarning, setValidationWarning] = React.useState(false);
+
+  const [register] = useMutation(USER_REGISTER, {
+    onError({ graphQLErrors }) {
+      setInProgress(false);
+      if (graphQLErrors) {
+        setRegistrationError(true);
+      }
+    },
+    onCompleted({ register: _register }) {
+      setInProgress(false);
+      if (_register.id) {
+        navigation.pop();
+      }
+    }
+  });
 
   const onPressDoRegister = () => {
+    if (!userEmail || !userPassword) {
+      setValidationWarning(true);
+      return;
+    };
     setInProgress(true);
-    console.log('Send query...');
+    const localUserName = !userName ? userEmail : userName;
+
+    register({ variables: { username: localUserName, email: userEmail, password: userPassword } })
+  }
+
+  const onUserNameTextChange = (value: string) => {
+    setUserName(value);
+  }
+
+  const onEmailTextChange = (value: string) => {
+    setUserEmail(value);
+  }
+
+  const onPasswordTextChange = (value: string) => {
+    setUserPassword(value);
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Register with your Bynder email</Text>
+      <Text style={styles.title}>{validationWarning ? 'Email or password cannot be empty' : 'Register with your account'}</Text>
       <TextInput
-        label="Email"
-        value={userEmail}
-        onChangeText={(value) => setUserEmail(value)}
+        label="Username"
+        value={userName}
+        onChangeText={onUserNameTextChange}
         style={styles.input}
       />
       <TextInput
+        error={validationWarning}
+        label="Email"
+        value={userEmail}
+        onChangeText={onEmailTextChange}
+        style={styles.input}
+      />
+      <TextInput
+        error={validationWarning}
         secureTextEntry={true}
         label="Password"
         value={userPassword}
-        onChangeText={(value) => setUserPassword(value)}
+        onChangeText={onPasswordTextChange}
         style={styles.input}
       />
       <Button
@@ -46,6 +94,7 @@ export default function Register({ navigation }) {
       >
         Back to Login
       </Button>
+      {registrationError && <Text>There were some errors during registration, please try again.</Text>}
     </View>
 
   );
