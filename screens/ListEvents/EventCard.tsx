@@ -13,7 +13,8 @@ export default function EventCard ({ data, onSelect }: Props) {
   const getKeyWords = (type: IEventType, location: any) => {
     switch (type) {
       case 'Place to stay':
-        return 'beautyful,' + location.country; // + ',' + location.city;
+        // return 'appartment,house,' + location.country; // + ',' + location.city;
+        return 'beautiful,modern,apartment,' + location.country; // + ',' + location.city;
 
       case 'Remote work':
         return 'coworking';
