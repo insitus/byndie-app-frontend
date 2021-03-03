@@ -7,10 +7,21 @@ import { Text, ActivityIndicator, Button } from 'react-native-paper';
 import { LIST_EVENTS } from '../../graphql/queries';
 import EventCard from './EventCard';
 
-export default function ListEvents({ navigation}: {navigation: any}) {
-  const { loading, error, data } = useQuery(LIST_EVENTS, {
+export default function ListEvents({ route, navigation}: any) {
+
+  const { loading, error, data, refetch } = useQuery(LIST_EVENTS, {
     // variables: { eventType: type },
   });
+
+  console.log({ data })
+
+  React.useEffect(() => {
+    console.log({ route })
+    if (route?.params?.doRefetch) {
+      refetch();
+      navigation.navigate('ListEvents');
+    }
+  }, [route?.params]);
 
   const onEventSelect = (eventId: string) => {
     navigation.push('EventDetail', {

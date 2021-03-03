@@ -12,7 +12,7 @@ interface Props {
 
 export function GuestsNumber (props: Props) {
   const { primaryColor } = useContext(ThemeContext);
-  const [numberOfGuests, setNumberOfGuests] = React.useState(0);
+  const [numberOfGuests, setNumberOfGuests] = React.useState(props.value);
 
   React.useEffect(() => {
     props.onChange(numberOfGuests)

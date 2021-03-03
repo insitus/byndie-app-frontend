@@ -63,10 +63,10 @@ export default function EventCard ({ data, onSelect, isDetailView }: Props) {
           <EventDetails>
             <Title>{data.name}</Title>
             <Location>
-              {data.location.country}, {data.location.city}
+              {data?.location?.country}, {data?.location?.city}
             </Location>
-            <Description>{data.description}</Description>
-            <Details>{data.details}</Details>
+            <Description>{data?.description}</Description>
+            <Details>{data?.details}</Details>
             <Row>
               <Date>
                 May 21 - May 22, 2021
