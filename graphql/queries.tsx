@@ -88,6 +88,10 @@ export const MY_EVENT_REQUESTS = gql`
       event {
         id
         name
+        location {
+          city
+          country
+        }
       }
       user {
         id
