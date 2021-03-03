@@ -16,7 +16,7 @@ export default function EventCard ({ data, onSelect, isDetailView }: Props) {
     switch (type) {
       case 'Place to stay':
         // return 'appartment,house,' + location.country; // + ',' + location.city;
-        return 'beautiful,modern,apartment,' + location.country; // + ',' + location.city;
+        return 'beautiful,modern,apartment,' + location?.country; // + ',' + location.city;
 
       case 'Remote work':
         return 'coworking';
