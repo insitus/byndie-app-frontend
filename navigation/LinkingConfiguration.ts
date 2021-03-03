@@ -31,6 +31,11 @@ export default {
               AddEvent: 'add-event',
             },
           },
+          MyEventRequests: {
+            screens: {
+              MyEventRequests: 'my-event-requests',
+            },
+          },
         },
       },
       NotFound: '*',
