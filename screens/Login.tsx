@@ -75,13 +75,6 @@ const Login = ({ navigation }: { navigation: any}) => {
       >
         Register
         </Button>
-      <Button
-        compact
-        onPress={() => protectedHealthcheckAdd()}
-        accessibilityLabel="Protected health check"
-      >
-        Add Healthcheck (protected)
-        </Button>
     </View>
   );
 }

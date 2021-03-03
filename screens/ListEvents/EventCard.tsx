@@ -1,5 +1,6 @@
 import React from "react";
-import { Card } from "react-native-paper";
+import { gql, useMutation } from "@apollo/client";
+import { Button, Card } from "react-native-paper";
 import styled from "styled-components/native";
 
 import { IEventType } from "../../types";
@@ -31,6 +32,28 @@ export default function EventCard ({ data, onSelect, isDetailView }: Props) {
     }
   }
 
+  const [makeRequestMutation, requestResponse] = useMutation(
+    gql`
+     mutation createRequest($eventId: String!) {
+       createRequestForEvent(
+         input: { eventId: $eventId }
+       ) {
+         id
+         accepted
+         user {
+           username
+         }
+       }
+     }
+    `
+  )
+  const makeRequest = () => {
+    makeRequestMutation({ variables: { eventId: data.id }});
+  }
+
+  console.log({ requestResponse });
+
+
   return (
     <CardContainer>
       <Card onPress={() => onSelect?.(data.id)}>
@@ -51,29 +74,34 @@ export default function EventCard ({ data, onSelect, isDetailView }: Props) {
           <Reviews>🌮 7 {' '} 🍻 3</Reviews>
 
           {isDetailView && (
-            <FullDescription>
-            Apartment, near beach. Close to Amsterdam, Small living room, kitchen, bedroom 2 beds, private toilet and simple bathroom.
+            <>
+              <FullDescription>
+              Apartment, near beach. Close to Amsterdam, Small living room, kitchen, bedroom 2 beds, private toilet and simple bathroom.
 
-            Not allowed: loud music or inviting strangers into the airbnb.
+              Not allowed: loud music or inviting strangers into the airbnb.
 
-            Amsterdam: 28 km
-            Haarlem: 13 km
-            Beach: 2,5 km
+              Amsterdam: 28 km
+              Haarlem: 13 km
+              Beach: 2,5 km
 
-            Distance apartment beach: 2,5 kilometer.
+              Distance apartment beach: 2,5 kilometer.
 
-            By car to Amsterdam 30 - 40 minutes, to Haarlem 15-20 minutes. By bus 382 to Amsterdam about 40-45 minutes.
+              By car to Amsterdam 30 - 40 minutes, to Haarlem 15-20 minutes. By bus 382 to Amsterdam about 40-45 minutes.
 
-            The space
-            Several rooms with small private kitchen, private toilet. Private entrance with front door. Use of a small (!) Pool to cool down by hot weather in summer. Very close to beach and sea and, just about 25 km from Amsterdam. In the neigborhood serveral malls for grocery shopping, busses to beach, IJmuiden city, Amsterdam or Haarlem. Ferry to New Castle in the nearby harbor.
+              The space
+              Several rooms with small private kitchen, private toilet. Private entrance with front door. Use of a small (!) Pool to cool down by hot weather in summer. Very close to beach and sea and, just about 25 km from Amsterdam. In the neigborhood serveral malls for grocery shopping, busses to beach, IJmuiden city, Amsterdam or Haarlem. Ferry to New Castle in the nearby harbor.
 
-            Guest access
-            Several rooms with small private kitchen, private toilet. Private entrance with private front door. Use of a (very) small (!) Pool to cool down by hot weather in summer. Very close to beach (5 minutes with car) and and only 20- 30 km from Amsterdam by car. (Bus 45 minutes). In the neighborhood several shops for grocery shopping, bus to beach, IJmuiden city, Amsterdam or Haarlem. Ferry to New Castle in the nearby harbor.
+              Guest access
+              Several rooms with small private kitchen, private toilet. Private entrance with private front door. Use of a (very) small (!) Pool to cool down by hot weather in summer. Very close to beach (5 minutes with car) and and only 20- 30 km from Amsterdam by car. (Bus 45 minutes). In the neighborhood several shops for grocery shopping, bus to beach, IJmuiden city, Amsterdam or Haarlem. Ferry to New Castle in the nearby harbor.
 
-            Other things to note
-            Dogs allowed. Cats allowed. Other small pets allowed. Not allowed: dangerous animals or animals that make a lot of noise. :D
+              Other things to note
+              Dogs allowed. Cats allowed. Other small pets allowed. Not allowed: dangerous animals or animals that make a lot of noise. :D
 
-            </FullDescription>
+              </FullDescription>
+              {requestResponse.error && requestResponse.error.message}
+              {requestResponse.data && requestResponse.data.createRequestForEvent && `Request sent!`}
+              <Button onPress={makeRequest} mode="contained" disabled={!data.isRequestEnabled}>Request to stay</Button>
+            </>
           )}
         </EventDetails>
       </Card>
