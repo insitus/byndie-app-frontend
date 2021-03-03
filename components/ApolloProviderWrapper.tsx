@@ -3,7 +3,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react"
 
-const retrieveToken = async (): Promise<string> => {
+export const retrieveToken = async (): Promise<string> => {
   const token = await AsyncStorage.getItem('token');
   if (token) {
     return token;

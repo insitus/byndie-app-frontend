@@ -32,6 +32,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
   const [isLoggedIn, setLoggedIn] = React.useState(false);
+  const { localToken } = useApolloContext();
 
   const { data, error } = useQuery(gql`
   query {
@@ -51,7 +52,7 @@ const RootNavigator = () => {
 
 
   return (
-    !isLoggedIn ? (
+    !(localToken || isLoggedIn) ? (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
