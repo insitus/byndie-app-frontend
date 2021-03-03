@@ -2,8 +2,6 @@ import React from "react";
 import { Card } from "react-native-paper";
 import styled from "styled-components/native";
 
-import { IEventType } from "../../types";
-
 interface Props {
   data: any;
   onSelect?: (id: string) => void;
@@ -11,30 +9,9 @@ interface Props {
 }
 
 export default function EventCard ({ data, onSelect, isDetailView }: Props) {
-  const getKeyWords = (type: IEventType, location: any) => {
-    switch (type) {
-      case 'Place to stay':
-        // return 'appartment,house,' + location.country; // + ',' + location.city;
-        return 'beautiful,modern,apartment,' + location.country; // + ',' + location.city;
-
-      case 'Remote work':
-        return 'coworking';
-      
-      case 'City tour':
-        return 'city,tourism';
-
-      case 'Classes':
-        return 'classmate,masterclass';
-
-      default:
-        return '';
-    }
-  }
-
   return (
     <CardContainer>
-      <Card onPress={() => onSelect?.(data.id)}>
-        <Card.Cover source={{ uri: `https://source.unsplash.com/1040x860/?${getKeyWords(data.eventType.name, data.location)}` }} />
+      <Card>
         <EventDetails>
           <Title>{data.name}</Title>
           <Location>

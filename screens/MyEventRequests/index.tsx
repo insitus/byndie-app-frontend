@@ -17,7 +17,7 @@ export default function MyEventRequests({ navigation}: {navigation: any}) {
     <ScrollView style={styles.container}>
       {loading && <ActivityIndicator />}
       {error && <Text>Error occured</Text>}
-
+      {!data.requestsForMyEvents && <Text>You have no active requests</Text>}
       {data && !loading && (
         <FlatList data={data.requestsForMyEvents} renderItem={renderCard} />
       )}
