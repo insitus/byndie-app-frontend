@@ -3,22 +3,29 @@ export type RootStackParamList = {
   Login: undefined;
   Register: undefined;
   NotFound: undefined;
+  EventDetail: undefined;
 };
 
 export type BottomTabParamList = {
-  Listing: undefined;
+  ListEvents: undefined;
   AddEvent: undefined;
   Profile: undefined;
 };
 
-export type ListingParamList = {
-  Listing: undefined;
+export type ListEventsParamList = {
+  ListEvents: undefined;
 };
 
 export type AddEventParamList = {
   AddEvent: undefined;
 };
 
+export type EventDetailParamList = {
+  EventDetail: undefined;
+};
+
 export type ProfileParamList = {
   Profile: undefined;
 };
+
+export type IEventType = 'Place to stay' | 'Remote work' | 'City tour' | 'Classes';

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 
 export const retrieveToken = async (): Promise<string> => {
   const token = await AsyncStorage.getItem('token');
+
   if (token) {
     return token;
   }
@@ -24,14 +25,17 @@ export const ApolloProviderWrapper: React.FC = ({ children }) => {
   useEffect(() => {
     const localTokenPromise = async () => {
       const token = await retrieveToken();
+
       if (token) {
         setLocalToken(token);
       }
     }
+
     localTokenPromise();
   }, []);
 
   const client = new ApolloClient({
+    // uri: 'http://localhost:3000/graphql',
     uri: 'https://byndie-app-server.herokuapp.com/graphql',
     cache: new InMemoryCache(),
     headers: {
@@ -40,5 +44,4 @@ export const ApolloProviderWrapper: React.FC = ({ children }) => {
   });
 
   return <Provider value={{ setLocalToken, localToken }}><ApolloProvider client={client}>{children}</ApolloProvider></Provider>;
-
 }

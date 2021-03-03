@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Chip } from 'react-native-paper';
 
+import { IEventType } from '../../types';
+
 interface Props {
-  title: string;
+  title: IEventType;
   icon?: string;
   setValue: (title: string) => void;
   selectedEventType: string;
