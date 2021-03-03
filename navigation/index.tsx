@@ -1,6 +1,7 @@
+import * as React from 'react';
+
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 import { useApolloContext } from '../components/ApolloProviderWrapper';
 import Login from '../screens/Login';
@@ -10,6 +11,8 @@ import Register from '../screens/Register';
 import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
+import { gql, useQuery } from '@apollo/client';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // If you are not familiar with React Navigation, we recommend going through the
 // "Fundamentals" guide: https://reactnavigation.org/docs/getting-started
@@ -28,9 +31,27 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
-  const { localToken } = useApolloContext();
+  const [isLoggedIn, setLoggedIn] = React.useState(false);
+
+  const { data, error } = useQuery(gql`
+  query {
+    isLoggedIn {
+      status
+    }
+  }`);
+
+  React.useEffect(() => {
+    if (data?.isLoggedIn?.status) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+    console.log({ data, error })
+  }, [data, error]);
+
+
   return (
-    !localToken ? (
+    !isLoggedIn ? (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
