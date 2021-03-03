@@ -1,45 +1,50 @@
 import * as React from "react";
 import { Card } from "react-native-paper";
-import styled from "styled-components";
+import styled from "styled-components/native";
+import { IEventType } from "../../types";
 
 interface Props {
   data: any;
 }
 
 export default function EventCard ({ data }: Props) {
-  // const props = {
-  //   name: "Tour of Rotterdam - Kop van Zuid",
-  //   eventType: "City tour",
-  //   country: "Netherlands",
-  //   city: "Rotterdam",
-  //   description:
-  //     "45 minute tour to the Eramusbridge, Hotel New York and de Hoerenloper.",
-  //   details: "Bring a jacket, can be chilly!",
-  //   host: "Brian V",
-  //   dateFrom: "March 20 2020",
-  //   dateTo: "",
-  //   reviews: "🌮 7 🍻 3",
-  // };
+  const getKeyWords = (type: IEventType, location: any) => {
+    switch (type) {
+      case 'Place to stay':
+        return 'beautyful,' + location.country; // + ',' + location.city;
+
+      case 'Remote work':
+        return 'coworking';
+      
+      case 'City tour':
+        return 'city,tourism';
+
+      case 'Classes':
+        return 'classmate,masterclass';
+
+      default:
+        return '';
+    }
+  }
 
   return (
     <CardContainer>
       <Card>
-        <Card.Cover source={{ uri: "https://picsum.photos/700" }} />
+        <Card.Cover source={{ uri: `https://source.unsplash.com/1040x860/?${getKeyWords(data.eventType.name, data.location)}` }} />
         <EventDetails>
           <Title>{data.name}</Title>
           <Location>
-            {data.country}, {data.city}
+            {data.location.country}, {data.location.city}
           </Location>
           <Description>{data.description}</Description>
           <Details>{data.details}</Details>
           <Row>
             <Date>
-              {data.dateFrom}
-              {data.dateTo && " - " + data.dateTo}
+              May 21 - May 22, 2021
             </Date>
-            <Host>{data.host}</Host>
+            <Host>{data.user.username}</Host>
           </Row>
-          <Reviews>{data.reviews}</Reviews>
+          <Reviews>🌮 7 {' '} 🍻 3</Reviews>
         </EventDetails>
       </Card>
     </CardContainer>
@@ -47,56 +52,68 @@ export default function EventCard ({ data }: Props) {
 }
 
 
-const CardContainer = styled.div`
+const CardContainer = styled.View`
   margin-bottom: 28px;
   font-family: "Arial";
   border: 2px solid rgba(0, 34, 51, 0.1);
   border-radius: 5px;
 `;
 
-const EventDetails = styled.div`
+const EventDetails = styled.View`
   padding: 14px 20px;
 `;
 
-const Title = styled.div`
+const Title = styled.Text`
+  font-size: 22px;
+  line-height: 22px;
+  font-weight: 700;
+
   margin-bottom: 8px;
-  font-size: 20px;
-  overflow: hidden;
-  word-break: break-all;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow: hidden;  
 `;
 
-const Location = styled.div`
-  margin-bottom: 12px;
+const Location = styled.Text`
   font-size: 17px;
+  line-height: 22px;
+  font-weight: 400;
+
+  margin-bottom: 12px;
+  
 `;
 
-const Description = styled.div`
+const Description = styled.Text`
   font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+
+  margin-bottom: 8px;
 `;
 
-const Details = styled.div`
+const Details = styled.Text`
   margin-bottom: 12px;
   font-size: 14px;
 `;
 
-const Row = styled.div`
+const Row = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 `;
-const Date = styled.div`
+const Date = styled.Text`
   font-size: 14px;
   font-weight: 600;
 `;
 
-const Host = styled.div`
+const Host = styled.Text`
   font-size: 14px;
   font-weight: 600;
+  line-height: 22px;
+
   margin-bottom: 12px;
 `;
 
-const Reviews = styled.div`
-  font-size: 12px;
+const Reviews = styled.Text`
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
 `;

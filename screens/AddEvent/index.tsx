@@ -28,17 +28,8 @@ export default function AddEvent() {
   });
 
   const onSaveEvent = () => {
-    console.log({
-      name,
-      eventType,
-      country,
-      city,
-      maxGuests,
-      description,
-      details,
-    });
     // TODO: validate
-    // TODO: save name, location, ... (from state)
+
     addEventMutation({
       variables: {
         name,

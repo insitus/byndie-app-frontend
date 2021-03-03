@@ -22,3 +22,5 @@ export type AddEventParamList = {
 export type ProfileParamList = {
   Profile: undefined;
 };
+
+export type IEventType = 'Place to stay' | 'Remote work' | 'City tour' | 'Classes';

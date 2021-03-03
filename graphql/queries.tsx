@@ -44,3 +44,48 @@ export const LIST_EVENTS = gql`
     }
   }
 `;
+
+export const EVENT_DETAIL = (id: string) => gql`
+  query listEvents {
+    oneEvents (id: ${id}) {
+      id
+      name
+      eventType {
+        id
+        name
+      }
+      location {
+        city
+        country
+      }
+      user {
+        id
+        username
+        firstName
+        lastName
+        location {
+          city
+          country
+        }
+      }
+      maxPeople
+      dateFrom
+      dateTo
+      description
+      details
+      requests {
+        id
+        accepted
+        declined
+        message
+        user {
+          id
+          username
+          email
+          lastName
+          firstName
+        }
+      }
+    }
+  }
+`;
