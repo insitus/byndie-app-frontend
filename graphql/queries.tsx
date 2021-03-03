@@ -28,19 +28,6 @@ export const LIST_EVENTS = gql`
       dateTo
       description
       details
-      requests {
-        id
-        accepted
-        declined
-        message
-        user {
-          id
-          username
-          email
-          lastName
-          firstName
-        }
-      }
     }
   }
 `;
