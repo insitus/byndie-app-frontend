@@ -6,14 +6,16 @@ export const USER_SIGNIN = gql`
       accessToken
     }
   }
-`
+`;
+
 export const USER_REGISTER = gql`
   mutation registerUser($username: String!, $email: String!, $password: String!) {
     register(input: { username: $username, email: $email, password: $password}) {
       id
     }
   }
-`
+`;
+
 export const ADD_HEALTH = gql`
   mutation {
     addHealthCheck {
@@ -23,7 +25,7 @@ export const ADD_HEALTH = gql`
       }
     }
   }
-`
+`;
 
 export const ADD_EVENT = gql`
   mutation addEvent($name: String!, $eventType: EventTypeInput!, $location: LocationInput!, $maxPeople: Float!, $dateFrom: DateTime!, $dateTo: DateTime!, $description: String!, $details: String!) {
@@ -43,4 +45,5 @@ export const ADD_EVENT = gql`
       name
     }
   }
-`
+`;
+

@@ -6,13 +6,13 @@ export type RootStackParamList = {
 };
 
 export type BottomTabParamList = {
-  Listing: undefined;
+  ListEvents: undefined;
   AddEvent: undefined;
   Profile: undefined;
 };
 
-export type ListingParamList = {
-  Listing: undefined;
+export type ListEventsParamList = {
+  ListEvents: undefined;
 };
 
 export type AddEventParamList = {

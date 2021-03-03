@@ -5,9 +5,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import Listing from '../screens/Listing';
+import ListEvents from '../screens/ListEvents';
 import AddEvent from '../screens/AddEvent';
-import { BottomTabParamList, ListingParamList, AddEventParamList, ProfileParamList } from '../types';
+import { BottomTabParamList, ListEventsParamList, AddEventParamList, ProfileParamList } from '../types';
 import Profile from '../screens/Profile';
 import { IconButton, Searchbar } from 'react-native-paper';
 import { View } from 'react-native';
@@ -20,11 +20,11 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Listing"
+      initialRouteName="ListEvents"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="Listing"
-        component={ListingNavigator}
+        name="ListEvents"
+        component={ListEventsNavigator}
         options={{
           tabBarLabel: 'List events',
           tabBarIcon: ({ color }) => <TabBarIcon name="view-dashboard" color={color} />,
@@ -58,9 +58,9 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof MaterialCommunity
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const ListingStack = createStackNavigator<ListingParamList>();
+const ListStack = createStackNavigator<ListEventsParamList>();
 
-function ListingNavigator() {
+function ListEventsNavigator() {
   const [searchQuery, setSearchQuery] = React.useState('');
 
   const onSearchQueryChange = (query: string) => setSearchQuery(query);
@@ -78,15 +78,15 @@ function ListingNavigator() {
   )
 
   return (
-    <ListingStack.Navigator>
-      <ListingStack.Screen
-        name="Listing"
-        component={Listing}
+    <ListStack.Navigator>
+      <ListStack.Screen
+        name="ListEvents"
+        component={ListEvents}
         options={{
           headerTitle: searchHeader
         }}
       />
-    </ListingStack.Navigator>
+    </ListStack.Navigator>
   );
 }
 

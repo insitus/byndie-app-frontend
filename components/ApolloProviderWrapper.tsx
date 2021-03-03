@@ -32,7 +32,8 @@ export const ApolloProviderWrapper: React.FC = ({ children }) => {
   }, []);
 
   const client = new ApolloClient({
-    uri: 'http://localhost:3000/graphql',
+    // uri: 'http://localhost:3000/graphql',
+    uri: 'https://byndie-app-server.herokuapp.com/graphql',
     cache: new InMemoryCache(),
     headers: {
       authorization: localToken ? `Bearer ${localToken}` : "",
