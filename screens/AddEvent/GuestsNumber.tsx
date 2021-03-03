@@ -46,7 +46,7 @@ export function GuestsNumber (props: Props) {
   );
 };
 
-const Counter = styled.View`
+const Counter = styled.Text`
   margin: auto 18px;
   font-size: 24px;
 `;
