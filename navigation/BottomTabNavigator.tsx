@@ -9,8 +9,8 @@ import ListEvents from '../screens/ListEvents';
 import AddEvent from '../screens/AddEvent';
 import { BottomTabParamList, ListEventsParamList, AddEventParamList, ProfileParamList } from '../types';
 import Profile from '../screens/Profile';
-import { IconButton, Searchbar } from 'react-native-paper';
-import { View } from 'react-native';
+// import { IconButton, Searchbar } from 'react-native-paper';
+// import { View } from 'react-native';
 import { ThemeContext } from '../ThemeContext';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -61,21 +61,21 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof MaterialCommunity
 const ListStack = createStackNavigator<ListEventsParamList>();
 
 function ListEventsNavigator() {
-  const [searchQuery, setSearchQuery] = React.useState('');
+  // const [searchQuery, setSearchQuery] = React.useState('');
 
-  const onSearchQueryChange = (query: string) => setSearchQuery(query);
-  const searchHeader = () => (
-    <View style={{justifyContent: 'center', flexDirection: 'row'}}>
-      <Searchbar style={{alignSelf: 'flex-start'}} placeholder="Search" onChangeText={onSearchQueryChange} value={searchQuery} />
-      <IconButton
-        icon="filter"
-        color='blue'
-        size={20}
-        onPress={() => console.log('Pressed')}
-        style={{alignSelf: 'flex-end'}} 
-      />
-    </View>
-  )
+  // const onSearchQueryChange = (query: string) => setSearchQuery(query);
+  // const searchHeader = () => (
+  //   <View style={{justifyContent: 'center', flexDirection: 'row'}}>
+  //     <Searchbar style={{alignSelf: 'flex-start'}} placeholder="Search" onChangeText={onSearchQueryChange} value={searchQuery} />
+  //     <IconButton
+  //       icon="filter"
+  //       color='blue'
+  //       size={20}
+  //       onPress={() => console.log('Pressed')}
+  //       style={{alignSelf: 'flex-end'}} 
+  //     />
+  //   </View>
+  // )
 
   return (
     <ListStack.Navigator>
@@ -83,7 +83,7 @@ function ListEventsNavigator() {
         name="ListEvents"
         component={ListEvents}
         options={{
-          headerTitle: searchHeader
+          headerShown: false
         }}
       />
     </ListStack.Navigator>
