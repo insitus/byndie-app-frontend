@@ -7,7 +7,7 @@ export type RootStackParamList = {
 
 export type BottomTabParamList = {
   Listing: undefined;
-  Booking: undefined;
+  AddEvent: undefined;
   Profile: undefined;
 };
 
@@ -15,8 +15,8 @@ export type ListingParamList = {
   Listing: undefined;
 };
 
-export type BookingParamList = {
-  Booking: undefined;
+export type AddEventParamList = {
+  AddEvent: undefined;
 };
 
 export type ProfileParamList = {
