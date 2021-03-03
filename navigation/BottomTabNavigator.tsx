@@ -8,7 +8,7 @@ import useColorScheme from '../hooks/useColorScheme';
 import ListEvents from '../screens/ListEvents';
 import AddEvent from '../screens/AddEvent';
 import MyEventRequests from '../screens/MyEventRequests';
-import { BottomTabParamList, ListEventsParamList, AddEventParamList, ProfileParamList, MyEventsParamList, MyEventRequestsParamList } from '../types';
+import { BottomTabParamList, ListEventsParamList, AddEventParamList, ProfileParamList, MyEventRequestsParamList } from '../types';
 import Profile from '../screens/Profile';
 import { ThemeContext } from '../ThemeContext';
 
@@ -39,7 +39,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="MyEventRequests"
-        component={MyEventRequests}
+        component={MyEventRequestsNavigator}
         options={{
           tabBarLabel: 'Requests',
           tabBarIcon: ({ color }) => <TabBarIcon name="bell" color={color} />,
@@ -68,15 +68,14 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof MaterialCommunity
 const ListStack = createStackNavigator<ListEventsParamList>();
 
 function ListEventsNavigator() {
+  const { header } =  React.useContext(ThemeContext);
 
   return (
-    <ListStack.Navigator>
+    <ListStack.Navigator screenOptions={{ headerTitleStyle: header }}>
       <ListStack.Screen
         name="ListEvents"
         component={ListEvents}
-        options={{
-          headerShown: false
-        }}
+        options={{headerTitle: 'Discover events'}}
       />
     </ListStack.Navigator>
   );
@@ -114,14 +113,16 @@ function ProfileNavigator() {
 
 const MyEventRequestsStack = createStackNavigator<MyEventRequestsParamList>();
 
-function MyEventsNavigator() {
+function MyEventRequestsNavigator() {
+  const { header } =  React.useContext(ThemeContext);
+  
   return (
-    <MyEventRequests.Navigator>
-      <MyEventRequests.Screen
+    <MyEventRequestsStack.Navigator screenOptions={{ headerTitleStyle: header }}>
+      <MyEventRequestsStack.Screen
         name="MyEventRequests"
         component={MyEventRequests}
-        options={{ headerTitle: 'Requests' }}
+        options={{headerTitle: 'Requests'}}
       />
-    </MyEventRequests.Navigator>
+    </MyEventRequestsStack.Navigator>
   );
 }
