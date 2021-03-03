@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "styled-components/native";
 import { StyleSheet, ScrollView } from 'react-native';
 import { useQuery } from '@apollo/client';
-import { Text, ActivityIndicator } from 'react-native-paper';
+import { Text, ActivityIndicator, Button } from 'react-native-paper';
 
 import { EVENT_DETAIL } from '../../graphql/queries';
 import EventCard from '../ListEvents/EventCard';
@@ -31,6 +31,7 @@ export default function EventDetail({ route, navigation }: any) {
 
       {data && !loading && (
         <Container>
+          <Button mode="outlined" onPress={() => navigation.pop()}>Back</Button>
           <EventCard data={data.oneEvent} isDetailView />
         </Container>
       )}

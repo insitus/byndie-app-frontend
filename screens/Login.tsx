@@ -43,7 +43,7 @@ const Login = ({ navigation }: { navigation: any}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Get Onboard</Text>
+      <Text style={styles.title}>Login to the Byndie app</Text>
       <TextInput
         disabled={inProgress}
         label="Email"
@@ -74,13 +74,6 @@ const Login = ({ navigation }: { navigation: any}) => {
         accessibilityLabel="Register"
       >
         Register
-        </Button>
-      <Button
-        compact
-        onPress={() => protectedHealthcheckAdd()}
-        accessibilityLabel="Protected health check"
-      >
-        Add Healthcheck (protected)
         </Button>
     </View>
   );

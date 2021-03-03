@@ -56,7 +56,7 @@ export default function Register({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{validationWarning ? 'Email or password cannot be empty' : 'Register with your account'}</Text>
+      <Text style={styles.title}>{validationWarning ? 'Email or password cannot be empty' : 'Create an account'}</Text>
       <TextInput
         label="Username"
         value={userName}

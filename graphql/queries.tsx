@@ -28,19 +28,6 @@ export const LIST_EVENTS = gql`
       dateTo
       description
       details
-      requests {
-        id
-        accepted
-        declined
-        message
-        user {
-          id
-          username
-          email
-          lastName
-          firstName
-        }
-      }
     }
   }
 `;
@@ -73,6 +60,7 @@ export const EVENT_DETAIL = gql`
       dateTo
       description
       details
+      isRequestEnabled
       requests {
         id
         accepted

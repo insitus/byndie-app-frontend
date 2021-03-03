@@ -1,15 +1,27 @@
 import React from 'react';
+import styled from "styled-components/native";
 import { StyleSheet, ScrollView, FlatList } from 'react-native';
 import { useQuery } from '@apollo/client';
-import { Text, ActivityIndicator } from 'react-native-paper';
+import { Text, ActivityIndicator, Button } from 'react-native-paper';
 
 import { LIST_EVENTS } from '../../graphql/queries';
 import EventCard from './EventCard';
 
-export default function ListEvents({ navigation}: {navigation: any}) {
-  const { loading, error, data } = useQuery(LIST_EVENTS, {
+export default function ListEvents({ route, navigation}: any) {
+
+  const { loading, error, data, refetch } = useQuery(LIST_EVENTS, {
     // variables: { eventType: type },
   });
+
+  console.log({ data })
+
+  React.useEffect(() => {
+    console.log({ route })
+    if (route?.params?.doRefetch) {
+      refetch();
+      navigation.navigate('ListEvents');
+    }
+  }, [route?.params]);
 
   const onEventSelect = (eventId: string) => {
     navigation.push('EventDetail', {
@@ -22,14 +34,26 @@ export default function ListEvents({ navigation}: {navigation: any}) {
   );
 
   return (
-    <ScrollView style={styles.container}>
-      {loading && <ActivityIndicator />}
-      {error && <Text>Error occured</Text>}
+    <>
+      <ScrollView style={styles.container}>
+        {loading && <ActivityIndicator />}
+        {error && <Text>Error occured</Text>}
 
-      {data && !loading && (
-        <FlatList data={data.allEvents} renderItem={renderCard} />
-      )}
-    </ScrollView>
+        {data && !loading && (
+          <>
+          <Title>Discover events</Title>
+
+          <ButtonContainer>
+            <Button icon="filter-variant" mode="outlined" onPress={() => console.log('Pressed')}>
+              Filters
+            </Button>
+          </ButtonContainer>
+
+          <FlatList data={data.allEvents} renderItem={renderCard} />
+          </>
+        )}
+      </ScrollView>
+    </>
   );
 }
 
@@ -38,3 +62,16 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 });
+
+const Title = styled.Text`
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 41px;
+  letter-spacing: 0.4000000059604645px;
+`;
+
+const ButtonContainer = styled.View`
+  width: 180px;
+  margin: 30px 0 20px 0;
+`;
