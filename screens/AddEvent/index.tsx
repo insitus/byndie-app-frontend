@@ -10,8 +10,9 @@ import { GuestsNumber } from "./GuestsNumber";
 
 import { useMutation } from "@apollo/client";
 import { ADD_EVENT } from "../../graphql/mutations";
+import { NavigationRouteContext } from "@react-navigation/native";
 
-export default function AddEvent() {
+export default function AddEvent({ navigation}: {navigation: any}) {
   const [name, setName] = useState("");
   const [eventType, setEventType] = useState("");
   const [country, setCountry] = useState("");
@@ -24,6 +25,7 @@ export default function AddEvent() {
   const [addEventMutation, addResponse] = useMutation(ADD_EVENT, {
     onCompleted({ addEvent }) {
       console.log({ addEvent });
+      navigation.navigate('Listing');
     },
   });
 
