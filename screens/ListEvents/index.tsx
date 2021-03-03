@@ -7,13 +7,14 @@ import { LIST_EVENTS } from '../../graphql/queries';
 import EventCard from './EventCard';
 
 export default function ListEvents({ navigation}: {navigation: any}) {
-// export default function ListEvents() {
   const { loading, error, data } = useQuery(LIST_EVENTS, {
     // variables: { eventType: type },
   });
 
-  const onEventSelect = (id: string) => {
-    navigation.navigate('EventDetail');
+  const onEventSelect = (eventId: string) => {
+    navigation.push('EventDetail', {
+      id: eventId,
+    })
   }
 
   const renderCard = ({ item }: any) => (

@@ -11,13 +11,16 @@ interface Props {
   id: string;
 }
 
-export default function EventDetail (props: Props) {
-  // if (!props.id) {
-  //   return <ActivityIndicator />;
-  // }
+
+export default function EventDetail({ route, navigation }: any) {
+  const { id } = route.params;
+
+  if (!id) {
+    return <ActivityIndicator />;
+  }
 
   const { loading, error, data } = useQuery(EVENT_DETAIL, {
-    variables: { id: "01a131b2-ecf3-45b8-a6b0-2797a0d8a174" },
+    variables: { id },
   });
 
   return (
