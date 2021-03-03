@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { IconButton } from "react-native-paper";
 
 import { ViewRow } from '../../components/Layout/Views';
@@ -30,22 +30,23 @@ export function GuestsNumber (props: Props) {
     width: 60,
     height: 46,
     borderWidth: 2,
-    borderStyle: 'solid',
-    borderColor: primaryColor,
+    borderStyle: 'solid' as "solid" | "dotted" | "dashed" | undefined,
+    borderColor: primaryColor as "solid" | "dotted" | "dashed" | undefined,
     borderRadius: 100,
     color: primaryColor,
   };
 
+
   return (
     <ViewRow>
-      <IconButton style={buttonStyle} icon="minus" mode="outlined" onPress={removeGuest} />
+      <IconButton style={buttonStyle} icon="minus" onPress={removeGuest} />
         <Counter>{numberOfGuests}</Counter>
-      <IconButton style={buttonStyle} icon="plus" mode="outlined" onPress={addGuest} />
+      <IconButton style={buttonStyle} icon="plus" onPress={addGuest} />
     </ViewRow>
   );
 };
 
-const Counter = styled.div`
+const Counter = styled.Text`
   margin: auto 18px;
   font-size: 24px;
 `;

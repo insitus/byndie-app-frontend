@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
 import { ViewContainerScroll, ViewSpace } from "../../components/Layout/Views";
 import { EventType } from "./EventType";
@@ -148,7 +148,7 @@ export default function AddEvent() {
   );
 }
 
-const StyledParagraph = styled.p`
+const StyledParagraph = styled.Text`
   margin: 0 0 8px 0;
   font-size: 17px;
   font-style: normal;
@@ -156,6 +156,6 @@ const StyledParagraph = styled.p`
   line-height: 22px;
 `;
 
-const Section = styled.div`
+const Section = styled.View`
   margin-bottom: 20px;
 `;
