@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { TextInput } from "react-native-paper";
 
 interface Props {
@@ -19,7 +19,7 @@ export function Input (props: Props) {
   )
 }
 
-const Label = styled.span`
+const Label = styled.Text`
   margin-bottom: 8px;
   font-size: 17px;
   font-style: normal;
