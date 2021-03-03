@@ -7,7 +7,8 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ListEvents from '../screens/ListEvents';
 import AddEvent from '../screens/AddEvent';
-import { BottomTabParamList, ListEventsParamList, AddEventParamList, ProfileParamList } from '../types';
+import MyEventRequests from '../screens/MyEventRequests';
+import { BottomTabParamList, ListEventsParamList, AddEventParamList, ProfileParamList, MyEventsParamList, MyEventRequestsParamList } from '../types';
 import Profile from '../screens/Profile';
 import { ThemeContext } from '../ThemeContext';
 
@@ -34,6 +35,14 @@ export default function BottomTabNavigator() {
         options={{
           tabBarLabel: 'Add event',
           tabBarIcon: ({ color }) => <TabBarIcon name="bookmark" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="MyEventRequests"
+        component={MyEventRequests}
+        options={{
+          tabBarLabel: 'Requests',
+          tabBarIcon: ({ color }) => <TabBarIcon name="bell" color={color} />,
         }}
       />
       <BottomTab.Screen
@@ -100,5 +109,19 @@ function ProfileNavigator() {
         options={{ headerTitle: 'Profile' }}
       />
     </ProfileStack.Navigator>
+  );
+}
+
+const MyEventRequestsStack = createStackNavigator<MyEventRequestsParamList>();
+
+function MyEventsNavigator() {
+  return (
+    <MyEventRequests.Navigator>
+      <MyEventRequests.Screen
+        name="MyEventRequests"
+        component={MyEventRequests}
+        options={{ headerTitle: 'Requests' }}
+      />
+    </MyEventRequests.Navigator>
   );
 }

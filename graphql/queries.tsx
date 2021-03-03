@@ -77,3 +77,28 @@ export const EVENT_DETAIL = gql`
     }
   }
 `;
+
+export const MY_EVENT_REQUESTS = gql`
+  query {
+    requestsForMyEvents {
+      id
+      accepted
+      declined
+      message
+      event {
+        id
+        name
+      }
+      user {
+        id
+        username
+        firstName
+        lastName
+        location {
+          city
+          country
+        }
+      }
+    }
+  }
+`;
