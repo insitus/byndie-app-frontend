@@ -4,6 +4,11 @@ export default {
   prefixes: [Linking.makeUrl('/')],
   config: {
     screens: {
+      EventDetail: {
+        screens: {
+          EventDetail: 'event-detail',
+        },
+      },
       Root: {
         screens: {
           Login: {

@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { ColorSchemeName } from 'react-native';
 import { useApolloContext } from '../components/ApolloProviderWrapper';
 import Login from '../screens/Login';
+import EventDetail from '../screens/EventDetail';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import Register from '../screens/Register';
@@ -61,6 +62,7 @@ const RootNavigator = () => {
     ) : (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Root" component={BottomTabNavigator} />
+          <Stack.Screen name="EventDetail" component={EventDetail} />
           <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
         </Stack.Navigator>
       )

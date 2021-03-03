@@ -1,13 +1,15 @@
-import * as React from "react";
+import React from "react";
 import { Card } from "react-native-paper";
 import styled from "styled-components/native";
+
 import { IEventType } from "../../types";
 
 interface Props {
   data: any;
+  onSelect?: (id: string) => void;
 }
 
-export default function EventCard ({ data }: Props) {
+export default function EventCard ({ data, onSelect }: Props) {
   const getKeyWords = (type: IEventType, location: any) => {
     switch (type) {
       case 'Place to stay':
@@ -29,7 +31,7 @@ export default function EventCard ({ data }: Props) {
 
   return (
     <CardContainer>
-      <Card>
+      <Card onPress={() => onSelect?.(data.id)}>
         <Card.Cover source={{ uri: `https://source.unsplash.com/1040x860/?${getKeyWords(data.eventType.name, data.location)}` }} />
         <EventDetails>
           <Title>{data.name}</Title>

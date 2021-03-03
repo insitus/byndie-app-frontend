@@ -45,9 +45,9 @@ export const LIST_EVENTS = gql`
   }
 `;
 
-export const EVENT_DETAIL = (id: string) => gql`
-  query listEvents {
-    oneEvents (id: ${id}) {
+export const EVENT_DETAIL = gql`
+  query eventDetail($id: String!) {
+    oneEvent(id: $id) {
       id
       name
       eventType {
