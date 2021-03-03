@@ -46,9 +46,11 @@ export default function EventRequestCard ({ data, onSelect, isDetailView }: Prop
       <Card>
         <EventDetails>
           <Title>{data.event.name}</Title>
-          <Location>
-            {data?.event?.location?.country}, {data?.event?.location?.city}
-          </Location>
+          {data?.event?.location && (
+            <Location>
+              {data?.event?.location?.country}, {data?.event?.location?.city}
+            </Location>
+          )}
           <Description>{data?.description}</Description>
           <Row>
           {data.accepted || data.declined ? 
