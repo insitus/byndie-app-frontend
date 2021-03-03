@@ -53,36 +53,36 @@ export default function AddEvent({ navigation}: {navigation: any}) {
       <Section>
         <ViewSpace>
           <EventType
-            title="🛏️  &nbsp; Place to stay"
+            title="Place to stay"
             selectedEventType={eventType}
             setValue={setEventType}
           />
           <EventType
-            title="💻 &nbsp; Remote work"
-            selectedEventType={eventType}
-            setValue={setEventType}
-          />
-        </ViewSpace>
-        <ViewSpace>
-          <EventType
-            title="🌆 &nbsp; City tour"
-            selectedEventType={eventType}
-            setValue={setEventType}
-          />
-          <EventType
-            title="📚 &nbsp; Classes"
+            title="Remote work"
             selectedEventType={eventType}
             setValue={setEventType}
           />
         </ViewSpace>
         <ViewSpace>
           <EventType
-            title="💪 &nbsp; Workout"
+            title="City tour"
             selectedEventType={eventType}
             setValue={setEventType}
           />
           <EventType
-            title="🥘 &nbsp; Cooking"
+            title="Classes"
+            selectedEventType={eventType}
+            setValue={setEventType}
+          />
+        </ViewSpace>
+        <ViewSpace>
+          <EventType
+            title="Workout"
+            selectedEventType={eventType}
+            setValue={setEventType}
+          />
+          <EventType
+            title="Cooking"
             selectedEventType={eventType}
             setValue={setEventType}
           />
