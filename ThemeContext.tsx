@@ -8,7 +8,7 @@ interface Theme {
 
 export const theme: Theme = {
   header: {
-    fontFamily: 'Source Sans Pro',
+    // fontFamily: 'Source Sans Pro',
     fontSize: 34,
     fontWeight: '700',
     lineHeight: 41,
