@@ -33,7 +33,7 @@ export default function ListEvents({ navigation}: {navigation: any}) {
           <Title>Discover events</Title>
 
           <ButtonContainer>
-            <Button icon="filter" mode="outlined" onPress={() => console.log('Pressed')}>
+            <Button icon="filter-variant" mode="outlined" onPress={() => console.log('Pressed')}>
               Filters
             </Button>
           </ButtonContainer>
@@ -61,5 +61,6 @@ const Title = styled.Text`
 `;
 
 const ButtonContainer = styled.View`
-  width: 119px;
+  width: 180px;
+  margin: 30px 0 20px 0;
 `;
