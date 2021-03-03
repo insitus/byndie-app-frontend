@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { View, Button, Platform } from "react-native";
+import { View, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+
+import { StyledButtonOutlined } from "../components/Button";
 
 export const DatePicker = () => {
   const [date, setDate] = useState(new Date(1598051730000));
@@ -25,7 +27,7 @@ export const DatePicker = () => {
   return (
     <View>
       <View>
-        <Button onPress={showDatepicker} title="Select date" />
+        <StyledButtonOutlined onPress={showDatepicker} title="Select date" />
       </View>
       {show && (
         <DateTimePicker
