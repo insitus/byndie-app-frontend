@@ -60,6 +60,7 @@ export const EVENT_DETAIL = gql`
       dateTo
       description
       details
+      isRequestEnabled
       requests {
         id
         accepted

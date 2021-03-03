@@ -1,5 +1,6 @@
 import React from "react";
-import { Card } from "react-native-paper";
+import { gql, useMutation } from "@apollo/client";
+import { Button, Card } from "react-native-paper";
 import styled from "styled-components/native";
 
 import { IEventType } from "../../types";
@@ -31,6 +32,28 @@ export default function EventCard ({ data, onSelect, isDetailView }: Props) {
     }
   }
 
+  const [makeRequestMutation, requestResponse] = useMutation(
+    gql`
+     mutation createRequest($eventId: String!) {
+       createRequestForEvent(
+         input: { eventId: $eventId }
+       ) {
+         id
+         accepted
+         user {
+           username
+         }
+       }
+     }
+    `
+  )
+  const makeRequest = () => {
+    makeRequestMutation({ variables: { eventId: data.id }});
+  }
+
+  console.log({ requestResponse });
+
+
   return (
     <RelativeContainer>
       <CardContainer>
@@ -53,6 +76,7 @@ export default function EventCard ({ data, onSelect, isDetailView }: Props) {
             <Reviews>🌮 7 {' '} 🍻 3</Reviews>
 
             {isDetailView && (
+              <>
               <FullDescription>
               Apartment, near beach. Close to Amsterdam, Small living room, kitchen, bedroom 2 beds, private toilet and simple bathroom.
 
@@ -76,7 +100,11 @@ export default function EventCard ({ data, onSelect, isDetailView }: Props) {
               Dogs allowed. Cats allowed. Other small pets allowed. Not allowed: dangerous animals or animals that make a lot of noise. :D
 
               </FullDescription>
-            )}
+              {requestResponse.error && requestResponse.error.message}
+              {requestResponse.data && requestResponse.data.createRequestForEvent && `Request sent!`}
+              <Button onPress={makeRequest} mode="contained" disabled={!data.isRequestEnabled}>Request to stay</Button>
+            </>
+          )}
           </EventDetails>
         </Card>
       </CardContainer>
