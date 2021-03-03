@@ -55,26 +55,28 @@ export default function EventCard ({ data, onSelect, isDetailView }: Props) {
 
 
   return (
-    <CardContainer>
-      <Card onPress={() => onSelect?.(data.id)}>
-        <Card.Cover source={{ uri: `https://source.unsplash.com/1040x860/?${getKeyWords(data.eventType.name, data.location)}` }} />
-        <EventDetails>
-          <Title>{data.name}</Title>
-          <Location>
-            {data.location.country}, {data.location.city}
-          </Location>
-          <Description>{data.description}</Description>
-          <Details>{data.details}</Details>
-          <Row>
-            <Date>
-              May 21 - May 22, 2021
-            </Date>
-            <Host>{data.user.username}</Host>
-          </Row>
-          <Reviews>🌮 7 {' '} 🍻 3</Reviews>
+    <RelativeContainer>
+      <CardContainer>
+        <EventType>{data.eventType.name}</EventType>
+        <Card onPress={() => onSelect?.(data.id)}>
+          <Card.Cover source={{ uri: `https://source.unsplash.com/1040x860/?${getKeyWords(data.eventType.name, data.location)}` }} />
+          <EventDetails>
+            <Title>{data.name}</Title>
+            <Location>
+              {data.location.country}, {data.location.city}
+            </Location>
+            <Description>{data.description}</Description>
+            <Details>{data.details}</Details>
+            <Row>
+              <Date>
+                May 21 - May 22, 2021
+              </Date>
+              <Host>{data.user.username}</Host>
+            </Row>
+            <Reviews>🌮 7 {' '} 🍻 3</Reviews>
 
-          {isDetailView && (
-            <>
+            {isDetailView && (
+              <>
               <FullDescription>
               Apartment, near beach. Close to Amsterdam, Small living room, kitchen, bedroom 2 beds, private toilet and simple bathroom.
 
@@ -103,12 +105,17 @@ export default function EventCard ({ data, onSelect, isDetailView }: Props) {
               <Button onPress={makeRequest} mode="contained" disabled={!data.isRequestEnabled}>Request to stay</Button>
             </>
           )}
-        </EventDetails>
-      </Card>
-    </CardContainer>
+          </EventDetails>
+        </Card>
+      </CardContainer>
+    </RelativeContainer>
   );
 }
 
+const RelativeContainer = styled.View`
+  padding-top: 40px;
+  position: relative;
+`;
 
 const CardContainer = styled.View`
   margin-bottom: 28px;
@@ -187,4 +194,21 @@ const Reviews = styled.Text`
   font-weight: 400;
   line-height: 18px;
   color: rgba(0, 34, 51, 0.6);
+`;
+
+const EventType = styled.Text`
+  position: absolute;
+  left: 36px;
+  top: -16px;
+  z-index: 1;
+
+	display: flex;
+	align-items: center;
+
+  padding: 0 12px 2px 12px;
+  height: 27px;
+
+  color: #fff;
+  background: #46B976;
+  border-radius: 100px;
 `;
