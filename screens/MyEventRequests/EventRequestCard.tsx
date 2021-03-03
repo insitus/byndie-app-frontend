@@ -1,5 +1,6 @@
+import { useMutation, gql } from "@apollo/client";
 import React from "react";
-import { Card } from "react-native-paper";
+import { Button, Card } from "react-native-paper";
 import styled from "styled-components/native";
 
 interface Props {
@@ -8,17 +9,55 @@ interface Props {
   isDetailView?: boolean;
 }
 
-export default function EventCard ({ data, onSelect, isDetailView }: Props) {
+export default function EventRequestCard ({ data, onSelect, isDetailView }: Props) {
+
+  const [makeAcceptMutation, acceptResponse] = useMutation(
+    gql`
+     mutation makeAccept($requestId: String!) {
+       acceptRequest(requestId: $requestId) {
+         id
+       }
+     }
+    `
+  )
+  const makeAccept = () => {
+    makeAcceptMutation({ variables: { requestId: data.id }});
+  }
+
+  console.log({ acceptResponse });
+
+  const [makeDeclineMutation, declineResponse] = useMutation(
+    gql`
+     mutation makeDecline($requestId: String!) {
+       declineRequest(requestId: $requestId) {
+         id
+       }
+     }
+    `
+  )
+  const makeDecline = () => {
+    makeDeclineMutation({ variables: { requestId: data.id }});
+  }
+
+  console.log({ declineResponse });
+
   return (
     <CardContainer>
       <Card>
         <EventDetails>
-          <Title>{data.name}</Title>
+          <Title>{data.event.name}</Title>
           <Location>
-            {data?.location?.country}, {data?.location?.city}
+            {data?.event?.location?.country}, {data?.event?.location?.city}
           </Location>
           <Description>{data?.description}</Description>
-          <Details>{data?.details}</Details>
+          <Row>
+          {data.accepted || data.declined ? 
+          <Details>{data.accepted ? 'Accepted' : data.declined && 'Declined'}</Details> : <>
+                  <Button mode="outlined" onPress={() => makeAccept()}>Accept</Button>
+                  <Button mode="outlined" onPress={() => makeDecline()}>Decline</Button>
+                </>
+            }
+          </Row>
           <Row>
             <Date>
               May 21 - May 22, 2021
@@ -27,31 +66,7 @@ export default function EventCard ({ data, onSelect, isDetailView }: Props) {
           </Row>
           <Reviews>🌮 7 {' '} 🍻 3</Reviews>
 
-          {isDetailView && (
-            <FullDescription>
-            Apartment, near beach. Close to Amsterdam, Small living room, kitchen, bedroom 2 beds, private toilet and simple bathroom.
-
-            Not allowed: loud music or inviting strangers into the airbnb.
-
-            Amsterdam: 28 km
-            Haarlem: 13 km
-            Beach: 2,5 km
-
-            Distance apartment beach: 2,5 kilometer.
-
-            By car to Amsterdam 30 - 40 minutes, to Haarlem 15-20 minutes. By bus 382 to Amsterdam about 40-45 minutes.
-
-            The space
-            Several rooms with small private kitchen, private toilet. Private entrance with front door. Use of a small (!) Pool to cool down by hot weather in summer. Very close to beach and sea and, just about 25 km from Amsterdam. In the neigborhood serveral malls for grocery shopping, busses to beach, IJmuiden city, Amsterdam or Haarlem. Ferry to New Castle in the nearby harbor.
-
-            Guest access
-            Several rooms with small private kitchen, private toilet. Private entrance with private front door. Use of a (very) small (!) Pool to cool down by hot weather in summer. Very close to beach (5 minutes with car) and and only 20- 30 km from Amsterdam by car. (Bus 45 minutes). In the neighborhood several shops for grocery shopping, bus to beach, IJmuiden city, Amsterdam or Haarlem. Ferry to New Castle in the nearby harbor.
-
-            Other things to note
-            Dogs allowed. Cats allowed. Other small pets allowed. Not allowed: dangerous animals or animals that make a lot of noise. :D
-
-            </FullDescription>
-          )}
+          
         </EventDetails>
       </Card>
     </CardContainer>
