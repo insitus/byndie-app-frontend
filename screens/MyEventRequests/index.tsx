@@ -6,7 +6,7 @@ import { Text, ActivityIndicator } from 'react-native-paper';
 import { MY_EVENT_REQUESTS } from '../../graphql/queries';
 import EventRequestCard from './EventRequestCard';
 
-export default function MyEventRequests({ navigation}: {navigation: any}) {
+export default function MyEventRequests({ navigation }: { navigation: any }) {
   const { loading, error, data } = useQuery(MY_EVENT_REQUESTS);
 
   const renderCard = ({ item }: any) => (

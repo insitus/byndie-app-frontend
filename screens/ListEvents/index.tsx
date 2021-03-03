@@ -41,8 +41,6 @@ export default function ListEvents({ route, navigation}: any) {
 
         {data && !loading && (
           <>
-          <Title>Discover events</Title>
-
           <ButtonContainer>
             <Button icon="filter-variant" mode="outlined" onPress={() => console.log('Pressed')}>
               Filters
