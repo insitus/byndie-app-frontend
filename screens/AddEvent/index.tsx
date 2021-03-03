@@ -25,7 +25,8 @@ export default function AddEvent({ navigation}: {navigation: any}) {
   const [addEventMutation, addResponse] = useMutation(ADD_EVENT, {
     onCompleted({ addEvent }) {
       console.log({ addEvent });
-      navigation.navigate('ListEvents');
+      navigation.push('ListEvents', { doRefetch: true });
+
     },
   });
 
