@@ -7,9 +7,10 @@ import { IEventType } from "../../types";
 interface Props {
   data: any;
   onSelect?: (id: string) => void;
+  isDetailView?: boolean;
 }
 
-export default function EventCard ({ data, onSelect }: Props) {
+export default function EventCard ({ data, onSelect, isDetailView }: Props) {
   const getKeyWords = (type: IEventType, location: any) => {
     switch (type) {
       case 'Place to stay':
@@ -48,6 +49,32 @@ export default function EventCard ({ data, onSelect }: Props) {
             <Host>{data.user.username}</Host>
           </Row>
           <Reviews>🌮 7 {' '} 🍻 3</Reviews>
+
+          {isDetailView && (
+            <FullDescription>
+            Apartment, near beach. Close to Amsterdam, Small living room, kitchen, bedroom 2 beds, private toilet and simple bathroom.
+
+            Not allowed: loud music or inviting strangers into the airbnb.
+
+            Amsterdam: 28 km
+            Haarlem: 13 km
+            Beach: 2,5 km
+
+            Distance apartment beach: 2,5 kilometer.
+
+            By car to Amsterdam 30 - 40 minutes, to Haarlem 15-20 minutes. By bus 382 to Amsterdam about 40-45 minutes.
+
+            The space
+            Several rooms with small private kitchen, private toilet. Private entrance with front door. Use of a small (!) Pool to cool down by hot weather in summer. Very close to beach and sea and, just about 25 km from Amsterdam. In the neigborhood serveral malls for grocery shopping, busses to beach, IJmuiden city, Amsterdam or Haarlem. Ferry to New Castle in the nearby harbor.
+
+            Guest access
+            Several rooms with small private kitchen, private toilet. Private entrance with private front door. Use of a (very) small (!) Pool to cool down by hot weather in summer. Very close to beach (5 minutes with car) and and only 20- 30 km from Amsterdam by car. (Bus 45 minutes). In the neighborhood several shops for grocery shopping, bus to beach, IJmuiden city, Amsterdam or Haarlem. Ferry to New Castle in the nearby harbor.
+
+            Other things to note
+            Dogs allowed. Cats allowed. Other small pets allowed. Not allowed: dangerous animals or animals that make a lot of noise. :D
+
+            </FullDescription>
+          )}
         </EventDetails>
       </Card>
     </CardContainer>
@@ -79,22 +106,33 @@ const Location = styled.Text`
   font-size: 17px;
   line-height: 22px;
   font-weight: 400;
+  color: rgba(0, 34, 51, 0.6);
 
   margin-bottom: 12px;
-  
 `;
 
 const Description = styled.Text`
   font-size: 14px;
   line-height: 18px;
   font-weight: 400;
+  color: rgba(0, 34, 51, 0.6);
 
   margin-bottom: 8px;
+`;
+
+const FullDescription = styled(Description)`
+  font-size: 17px;
+  margin-top: 24px;
+  border-top: solid 1px #80808029;
+  line-height: 30px;
+
+	padding-top: 24px;
 `;
 
 const Details = styled.Text`
   margin-bottom: 12px;
   font-size: 14px;
+  color: rgba(0, 34, 51, 0.6);
 `;
 
 const Row = styled.View`
@@ -111,6 +149,7 @@ const Host = styled.Text`
   font-size: 14px;
   font-weight: 600;
   line-height: 22px;
+  color: rgba(0, 34, 51, 0.6);
 
   margin-bottom: 12px;
 `;
@@ -119,4 +158,5 @@ const Reviews = styled.Text`
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
+  color: rgba(0, 34, 51, 0.6);
 `;
