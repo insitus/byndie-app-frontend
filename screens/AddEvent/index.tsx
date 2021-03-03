@@ -25,7 +25,7 @@ export default function AddEvent({ navigation}: {navigation: any}) {
   const [addEventMutation, addResponse] = useMutation(ADD_EVENT, {
     onCompleted({ addEvent }) {
       console.log({ addEvent });
-      navigation.navigate('Listing');
+      navigation.navigate('ListEvents');
     },
   });
 
@@ -52,24 +52,36 @@ export default function AddEvent({ navigation}: {navigation: any}) {
       <Section>
         <ViewSpace>
           <EventType
-            title="Place to stay"
+            title="🛏️  &nbsp; Place to stay"
             selectedEventType={eventType}
             setValue={setEventType}
           />
           <EventType
-            title="Remote work"
+            title="💻 &nbsp; Remote work"
             selectedEventType={eventType}
             setValue={setEventType}
           />
         </ViewSpace>
         <ViewSpace>
           <EventType
-            title="City tour"
+            title="🌆 &nbsp; City tour"
             selectedEventType={eventType}
             setValue={setEventType}
           />
           <EventType
-            title="Classes"
+            title="📚 &nbsp; Classes"
+            selectedEventType={eventType}
+            setValue={setEventType}
+          />
+        </ViewSpace>
+        <ViewSpace>
+          <EventType
+            title="💪 &nbsp; Workout"
+            selectedEventType={eventType}
+            setValue={setEventType}
+          />
+          <EventType
+            title="🥘 &nbsp; Cooking"
             selectedEventType={eventType}
             setValue={setEventType}
           />
